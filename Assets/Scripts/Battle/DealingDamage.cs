@@ -48,7 +48,7 @@ public class DealingDamage : MonoBehaviour
             if (player.GetDefense() < enemy.attack && !justTookDamage && !enemy.isDead)
             {
                 //Debug.Log("Test");
-                player.TakeHit(enemy);
+                player.TakeMeleeHit(enemy);
                 justTookDamage = true;
             }
             else
@@ -71,56 +71,56 @@ public class DealingDamage : MonoBehaviour
 
     }
 
-    private void Attack()
-    {
-        Collider2D[] hitEnemies = null;
+    //private void Attack()
+    //{
+    //    Collider2D[] hitEnemies = null;
 
-        if (player.isFacingUp)
-        {
-            hitEnemies = Physics2D.OverlapCircleAll(upAttackPoint.position, attackRange, enemyLayers);
-        }
+    //    if (player.isFacingUp)
+    //    {
+    //        hitEnemies = Physics2D.OverlapCircleAll(upAttackPoint.position, attackRange, enemyLayers);
+    //    }
 
-        if (player.isFacingDown)
-        {
-            hitEnemies = Physics2D.OverlapCircleAll(downAttackPoint.position, attackRange, enemyLayers);
-        }
+    //    if (player.isFacingDown)
+    //    {
+    //        hitEnemies = Physics2D.OverlapCircleAll(downAttackPoint.position, attackRange, enemyLayers);
+    //    }
 
-        if (player.isFacingLeft)
-        {
-            hitEnemies = Physics2D.OverlapCircleAll(leftAttackPoint.position, attackRange, enemyLayers);
-        }
+    //    if (player.isFacingLeft)
+    //    {
+    //        hitEnemies = Physics2D.OverlapCircleAll(leftAttackPoint.position, attackRange, enemyLayers);
+    //    }
 
-        if (player.isFacingRight)
-        {
-            hitEnemies = Physics2D.OverlapCircleAll(rightAttackPoint.position, attackRange, enemyLayers);
-        }
+    //    if (player.isFacingRight)
+    //    {
+    //        hitEnemies = Physics2D.OverlapCircleAll(rightAttackPoint.position, attackRange, enemyLayers);
+    //    }
 
         
-        if(hitEnemies == null)
-        {
-            return;
-        }
+    //    if(hitEnemies == null)
+    //    {
+    //        return;
+    //    }
 
-        foreach(Collider2D enemy in hitEnemies)
-        {
-            if(enemy.GetComponent<Enemy>() != null)
-            {
-                // enemy takes damage from player
-                enemy.GetComponent<Enemy>().TakeHit(player);
-            }
-        }
+    //    foreach(Collider2D enemy in hitEnemies)
+    //    {
+    //        if(enemy.GetComponent<Enemy>() != null)
+    //        {
+    //            // enemy takes damage from player
+    //            enemy.GetComponent<Enemy>().TakeHit(player);
+    //        }
+    //    }
 
-        // reset cool down since player has attacked
-        justTookDamage = false;
-    }
+    //    // reset cool down since player has attacked
+    //    justTookDamage = false;
+    //}
 
-    private void Update()
-    {
-        if (Input.GetButtonDown("Fire1"))
-        {
-            Attack();
-        }
-    }
+    //private void Update()
+    //{
+    //    if (Input.GetButtonDown("Fire1"))
+    //    {
+    //        Attack();
+    //    }
+    //}
 
     // show attacking points in all directions
     private void OnDrawGizmosSelected()

@@ -46,7 +46,9 @@ public class SaveManager : MonoBehaviour
             if (DoorWay.enteredDoorWay)
             {
                 // put player in starting position for the active Scene
-                player.transform.position = player.startingPosition.initialValue;
+                player.transform.position = player.startingTransform.initialPosition;
+                player.transform.rotation = player.startingTransform.initialRotation;
+                player.transform.localScale = player.startingTransform.initialSize;
                 DoorWay.enteredDoorWay = false;
             }
         }

@@ -7,10 +7,10 @@ public class DoorWay : MonoBehaviour
     [SerializeField] private Player player = null;
 
     // stores position of player when exiting doorway
-    [SerializeField] private VectorValue playerPositionInDestination;
+    [SerializeField] private PlayerTransform playerTransformInDestination;
 
     // stores initial position of player when entering doorway
-    [SerializeField] private VectorValue playerPositionInCurrentScene;
+    [SerializeField] private PlayerTransform playerTransformInCurrentScene;
 
     [SerializeField] private int scoreRequired = 0;
     [SerializeField] private float requiredDistance = 5f;
@@ -32,7 +32,9 @@ public class DoorWay : MonoBehaviour
         // You met the requirement
         Debug.Log("You have met the requirement to pass.");
 
-        playerPositionInCurrentScene.initialValue = playerPositionInDestination.initialValue;
+        playerTransformInCurrentScene.initialPosition = playerTransformInDestination.initialPosition;
+        playerTransformInCurrentScene.initialRotation = playerTransformInDestination.initialRotation;
+        playerTransformInCurrentScene.initialSize = playerTransformInDestination.initialSize;
 
         SceneManager.LoadScene(destination);
 
@@ -49,7 +51,7 @@ public class DoorWay : MonoBehaviour
         {
 
             // get distance between player and goal (has to b within 5)
-            float distanceBetween = Vector2.Distance(this.transform.position, player.transform.position);
+            float distanceBetween = Vector3.Distance(this.transform.position, player.transform.position);
 
             // if player is within the required distance and has pressed attack button
             if (distanceBetween <= requiredDistance)

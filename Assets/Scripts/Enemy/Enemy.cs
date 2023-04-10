@@ -2,10 +2,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
+[RequireComponent(typeof(EnemyAIStateMachine))]
 public class Enemy : MonoBehaviour
 {
     public string enemyName;
     public int attack;
+    public int shootingDamage;
     public int defense;
     public int maxHealth = 50;
     public int health;
@@ -13,20 +15,32 @@ public class Enemy : MonoBehaviour
     public float reviveTime;
     public int numberOfLives;
     public int value;
+    public bool isShooter;
+    public bool isBrawler;
+    [SerializeField] private Animator animator;
+    private EnemyAIStateMachine stateMachine;
 
     private void Awake()
     {
         Revive();
     }
-    
+
+    private void Start()
+    {
+        stateMachine = GetComponent<EnemyAIStateMachine>();
+    }
+
     /*
      * Function takes away health of enemy based on its
      * defense and the given player's attack
      */
-    public void TakeHit(Player player)
+    public void TakeMeleeDamage(Player player)
     {
         if (!isDead)
         {
+            stateMachine.SetTarget(player.transform);
+            stateMachine.SetState(EnemyState.TargetVisible);
+
             int damage = (player.GetAttackPower() - this.defense);
             if (damage > 0)
             {
@@ -37,7 +51,7 @@ public class Enemy : MonoBehaviour
                 HUDConsole._instance.Log(player.userName + " has dealt " + damage + " damage to " + enemyName, 3f);
 
                 // take damage animation
-                this.GetComponent<Animator>().SetTrigger("tookDamage");
+                animator.SetTrigger("tookDamage");
             }
 
 
@@ -64,6 +78,51 @@ public class Enemy : MonoBehaviour
         }  
     }
 
+    public void TakeGunDamage(Player player)
+    {
+        if (!isDead)
+        {
+            // if enemy hasn't seen player, now they see them once they are hit
+            stateMachine.SetTarget(player.transform);
+            stateMachine.SetState(EnemyState.TargetVisible);
+
+            int damage = (player.gun.power - this.defense);
+            if (damage > 0)
+            {
+                this.health -= damage;
+                Debug.Log(player.userName + " has dealt " + damage + " damage to " + enemyName);
+
+                // show message in console for 3 seconds
+                HUDConsole._instance.Log(player.userName + " has dealt " + damage + " damage to " + enemyName, 3f);
+
+                // take damage animation
+                animator.SetTrigger("tookDamage");
+            }
+
+
+            if (health <= 0)
+            {
+                Die();
+
+                numberOfLives--;
+
+                if (RanOutOfLives())
+                {
+                    // add to bosses defeated, with its corresponding scene
+                    player.bossesDefeatedNames.Add(gameObject.name);
+                    player.bossesDefeatedScenes.Add(SceneManager.GetActiveScene().name);
+                }
+                else
+                {
+                    StartCoroutine(ReviveCoolDown());
+                }
+
+                // increase player score
+                player.playerScore += value;
+            }
+        }
+    }
+
     IEnumerator ReviveCoolDown()
     {
 
@@ -83,7 +142,8 @@ public class Enemy : MonoBehaviour
         if(numberOfLives == 0)
         {
             // hide game object
-            this.gameObject.SetActive(false);
+            // do Coroutine to despawn
+            //this.gameObject.SetActive(false);
 
             return true;
         }
@@ -104,10 +164,10 @@ public class Enemy : MonoBehaviour
         HUDConsole._instance.Log(enemyName + " has been defeated!", 3f);
 
         // do death animation
-        this.GetComponent<Animator>().SetTrigger("isDead");
+        animator.SetTrigger("isDead");
 
         // disable Player from being able to hit enemy
-        this.GetComponent<Collider2D>().enabled = false;
+        this.GetComponent<Collider>().enabled = false;
 
         // disable element
         this.enabled = false;
@@ -116,18 +176,18 @@ public class Enemy : MonoBehaviour
 
     public void DoWalkAnimation()
     {
-        this.GetComponent<Animator>().SetTrigger("isWalking");
+        animator.SetTrigger("isWalking");
     }
 
     public void StopWalkAnimation()
     {
-        this.GetComponent<Animator>().ResetTrigger("isWalking");
+        animator.ResetTrigger("isWalking");
     }
 
     public void DoAttackAnimation()
     {
         // do death animation
-        this.GetComponent<Animator>().SetTrigger("attacked");
+        animator.SetTrigger("attacked");
     }
 
     /*
@@ -138,10 +198,10 @@ public class Enemy : MonoBehaviour
     {
 
         // make enemy alive
-        this.GetComponent<Animator>().ResetTrigger("isDead");
+        animator.ResetTrigger("isDead");
 
         // enable Player from being able to hit enemy
-        this.GetComponent<Collider2D>().enabled = true;
+        this.GetComponent<Collider>().enabled = true;
 
         // enable element
         this.enabled = true;

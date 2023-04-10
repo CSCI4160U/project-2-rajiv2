@@ -8,24 +8,21 @@ public class Player : MonoBehaviour
 {
     // Values are increased In-Game if weapons or defense boosts are equipped
     private int currentAttack;
+
+    // Gun
+    public Gun gun;
+
     private int currentDefense;
     private int health;
-
     public string userName;
-
     public int defaultAttack = 25;
     public int defaultDefense = 10;
     public int maxHealth = 100;
     public int playerScore;
-
-    public bool isFacingUp;
-    public bool isFacingDown;
-    public bool isFacingLeft;
-    public bool isFacingRight;
-
     public bool isDead;
+    
 
-    public VectorValue startingPosition;
+    public PlayerTransform startingTransform;
 
     // stores Enemy names
     public List<string> bossesDefeatedNames;
@@ -46,10 +43,7 @@ public class Player : MonoBehaviour
         bossesDefeatedScenes = new List<string>();
     }
 
-
-
-
-    public void TakeHit(Enemy enemy)
+    public void TakeMeleeHit(Enemy enemy)
     {
         int damage = (enemy.attack - this.currentDefense);
 
@@ -67,6 +61,28 @@ public class Player : MonoBehaviour
 
             this.GetComponent<Animator>().SetTrigger("tookDamage");
             takeDamageSoundEffect.Play();
+        }
+    }
+
+    public void GetShot(Enemy enemy)
+    {
+        int damage = (enemy.shootingDamage - this.currentDefense);
+
+        if (damage > 0)
+        {
+            health -= damage;
+
+            // enemy attack animation
+            enemy.GetComponent<Animator>().SetTrigger("attacked");
+
+            Debug.Log(enemy.enemyName + " has shot " + userName);
+
+            // show message in console for 3 seconds
+            HUDConsole._instance.Log(enemy.enemyName + " has shot " + userName, 3f);
+
+            this.GetComponent<Animator>().SetTrigger("tookDamage");
+            //takeDamageSoundEffect.Play();
+            //bulletHitSoundEffect.Play();
         }
     }
 
@@ -92,10 +108,31 @@ public class Player : MonoBehaviour
         
     }
 
+    private void UpdateGunInfo()
+    {
+        GameObject gunHold = this.GetComponentInChildren<Camera>().GetComponentInChildren<Transform>().gameObject;
+        if (gunHold != null)
+        {
+            if (gunHold.transform.childCount > 0)
+            {
+                Gun gunEquipped = gunHold.GetComponentInChildren<Gun>();
+
+                if (gunEquipped != null)
+                {
+                    gun = gunEquipped;
+                    return;
+                }
+            }
+        }
+
+        gun = null;
+    }
+
     private void Update()
     {
         UpdateHealthSlider();
         UpdatePlayerScore();
+        UpdateGunInfo();
     }
 
     // Getters and Setters
@@ -105,6 +142,10 @@ public class Player : MonoBehaviour
         return currentAttack;
     }
 
+    public bool HasGun()
+    {
+        return gun != null;
+    }
     public void SetAttackPower(int newAttack)
     {
         currentAttack = newAttack;

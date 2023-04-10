@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f9c849d355e54478077cc04886a505, type: 3}
   m_Name: PlayerPosition
   m_EditorClassIdentifier: 
-  initialValue: {x: -12.4, y: -5.88}
+  initialPosition: {x: 23.3, y: 56.87, z: -9.33}
+  initialRotation: {x: 0, y: 0, z: 0, w: 0}
+  initialSize: {x: 1, y: 1, z: 1}

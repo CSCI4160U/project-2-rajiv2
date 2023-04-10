@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: bb3fa2bd053465941aa2a85e22c005aa
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - shotSoundEffect: {fileID: 4349474315061108109, guid: 13c2c20c51deec44aaf6923637daf029,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

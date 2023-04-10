@@ -1,94 +1,51 @@
 using UnityEngine;
-
-[RequireComponent(typeof(Enemy))]
+using UnityEngine.AI;
 public class EnemyMovement : MonoBehaviour
 {
-
-    [SerializeField] private GameObject player; 
-    [SerializeField] private float movementSpeed = 10f;
-    [SerializeField] private float hostileRadius = 5f;
-    private Enemy enemy;
-
-    private float distanceFromPlayer;
-
+    [SerializeField] Transform[] waypoints;
+    [SerializeField] float closeEnoughDistance;
+    [SerializeField] bool loop;
+    [SerializeField] private Animator animator = null;
+    private NavMeshAgent agent = null;
+    private int wayPointIndex = 0;
+    private bool patrolling = true;
     private void Start()
     {
-        enemy = this.GetComponent<Enemy>();
-
-        if(player == null)
+        agent = GetComponent<NavMeshAgent>();
+        if ((agent != null) && (waypoints.Length > 0))
         {
-            Debug.Log("Please set up 'Player' value in EnemyMovement script! Game Object: " + this.gameObject.name);
+            agent.SetDestination(waypoints[wayPointIndex].position);
         }
     }
-
-    void Update()
+    private void Update()
     {
-        if (!enemy.isDead)
+        if (!patrolling)
         {
-            Move();
-        }        
-    }
-
-    /*
-     * Function enables enemy to follow player around based on its
-     * hostile radius
-     */
-    public void FollowPlayer()
-    {
-
-        // direction the enemy must move in ordeer to get to the player
-        Vector2 direction = player.transform.position - transform.position;
-
-        // as long as player is alive
-        if (!player.GetComponent<Player>().isDead)
-        {
-            if (direction.x > 0)
-            {
-                transform.localScale = new Vector2(Mathf.Abs(transform.localScale.x), transform.localScale.y);
-            }
-            else
-            {
-                transform.localScale = new Vector2(-Mathf.Abs(transform.localScale.x), transform.localScale.y);
-            }
-
-            // move the enemy towards the player
-            transform.position = Vector3.MoveTowards(this.transform.position, player.transform.position, movementSpeed * Time.deltaTime);
-
-            // walk animation
-            enemy.DoWalkAnimation();
+            return;
         }
-        else
+        float distanceToTarget = Vector3.Distance(agent.transform.position, waypoints[wayPointIndex].position);
+        if (distanceToTarget < closeEnoughDistance)
         {
-            enemy.StopWalkAnimation();
+            // make the next waypoint active
+            wayPointIndex++;
+            // loop, if desired
+            if (wayPointIndex >= waypoints.Length)
+            {
+                if (loop)
+                {
+                    wayPointIndex = 0;
+                }
+                else
+                {
+                    patrolling = false;
+                    animator.SetFloat("Forward", 0);
+
+                    return;
+                }
+            }
+            // navigate to the waypoint
+            agent.SetDestination(waypoints[wayPointIndex].position);
         }
-    }
-
-    /*
-     * Function does all functionality relating to enemy movement
-     * including following the player around, and doing attack and
-     * walking animations.
-     */
-    public void Move()
-    {
-        if (player != null)
-        {
-            // get distance from player 
-            distanceFromPlayer = Vector2.Distance(transform.position, player.transform.position);
-
-            if(distanceFromPlayer < hostileRadius)
-            {
-                FollowPlayer();
-            }
-            else
-            {
-                // reset walking animation
-                enemy.StopWalkAnimation();
-            }
-
-            if(distanceFromPlayer < 2)
-            {
-                enemy.DoAttackAnimation();
-            }
-        }
+        animator.SetFloat("Forward", agent.velocity.magnitude);
     }
 }
