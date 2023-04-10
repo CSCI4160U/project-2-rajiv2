@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 public enum EnemyState
 {
     Patrolling, Alerted, TargetVisible, Dead
@@ -18,6 +19,7 @@ public class EnemyAIStateMachine : MonoBehaviour
     [SerializeField] private float lastAlertTime = 0.0f;
     [SerializeField] private float alertCooldown = 8.0f;
     [SerializeField] private Vector3 lastKnownTargetPosition;
+    [SerializeField] private float alertDistance;
     [Header("Target in Sight")]
     [SerializeField] private float lastShootTime = 0.0f;
     [SerializeField] private float shootCooldown = 1.0f;
@@ -25,6 +27,7 @@ public class EnemyAIStateMachine : MonoBehaviour
     [SerializeField]  private Animator animator = null;
     [SerializeField] private Transform[] consolePositions = null;
     [Header("Attacking")]
+    [SerializeField] private int numAttackAnimations = 5;
     [SerializeField] private float attackDistance;
     [Header("During Emergencies")]
     [SerializeField] private float useDistance;
@@ -36,6 +39,7 @@ public class EnemyAIStateMachine : MonoBehaviour
     private bool mustEnterCode = false;
     private bool mustAttack = false;
     private bool alarmActivated = false;
+    private bool coolDownCurrentAttack = false;
     private float walkingSpeed;
     private Enemy enemy;
 
@@ -186,28 +190,38 @@ public class EnemyAIStateMachine : MonoBehaviour
     {
         Player player = target.GetComponent<Player>();
 
-        float distanceToTarget = Vector3.Distance(agent.transform.position, player.transform.position);
-        Debug.Log("dista: " + distanceToTarget);
-        if (distanceToTarget < attackDistance)
-        {
-            animator.SetFloat("Forward", 0.0f);
-            // Randomly do attack
-            animator.SetTrigger("Punch");
-            //animator.SetTrigger("Kick");
-            
-            if(player != null)
-            {
-                // deal damage
-                player.TakeMeleeHit(enemy);
-            }
-            
+        //float distanceToTarget = Vector3.Distance(agent.transform.position, player.transform.position);
+        Vector3 direction = target.position - agent.transform.position;
+        direction.y = 0.0f;
 
+        //Debug.Log("dista: " + distanceToTarget);
+        if (direction.magnitude < attackDistance)
+        {
+            agent.enabled = false; // don't walk
+            animator.SetFloat("Forward", 0.0f);
+            animator.SetInteger("AttackNum", Random.Range(1, numAttackAnimations));
+            animator.SetTrigger("Attack");
+
+            // we have previously started attacking
+
+            // turn toward the target
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 0.1f);
+        }
+        else if (direction.magnitude < alertDistance)
+        {
+            // we are not close enough to attack, but are close enough to detect
+            // navigate toward the target
+            agent.enabled = true; // walk toward destination
+            agent.speed = runSpeed;
+            agent.SetDestination(target.position);
+            animator.SetFloat("Forward", agent.velocity.magnitude);
         }
         else
         {
             agent.SetDestination(target.position);
             animator.SetFloat("Forward", agent.velocity.magnitude);
-            agent.speed = runSpeed;
+            
         }
     }
     private void EnterCode()

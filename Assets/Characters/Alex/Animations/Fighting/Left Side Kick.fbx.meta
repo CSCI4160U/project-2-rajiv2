@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b410d7a65b4dfba4d9d114c58f2eabec
+guid: fe27273325c20b24a8f0ddc8445239ec
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Take Damage Standing
+      name: Left Side Kick
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 138
+      lastFrame: 48
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

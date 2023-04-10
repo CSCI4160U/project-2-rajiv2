@@ -2,13 +2,15 @@ using UnityEngine;
 
 public class UIControls : MonoBehaviour
 {
+    [SerializeField] private GameObject pauseMenu;
+    [SerializeField] private GameObject deathScreen;
     private bool pauseMenuIsShown = false;
     private bool deathScreenIsShown = false;
-    private GameObject pauseMenu;
+    private Player player;
 
     private void Awake()
     {
-        pauseMenu = GameObject.Find("PauseMenu");
+        player = GetComponent<Player>();
     }
 
     private void Update()
@@ -36,21 +38,19 @@ public class UIControls : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Debug.Log("Toggled Pause Menu");
-            pauseMenuIsShown = !pauseMenuIsShown; 
+            pauseMenuIsShown = !pauseMenuIsShown;
         }
     }
 
     public void ShowDeathScreen()
     {
-        GameObject deathScreen = GameObject.Find("DeathScreen");
-
 
         if (deathScreen != null)
         {
             deathScreen.GetComponent<Canvas>().enabled = deathScreenIsShown;
         }
 
-        if (this.GetComponent<Player>().isDead)
+        if (player.isDead)
         {
             deathScreenIsShown = true;
         }

@@ -48,7 +48,7 @@ public class DealingDamage : MonoBehaviour
             if (player.GetDefense() < enemy.attack && !justTookDamage && !enemy.isDead)
             {
                 //Debug.Log("Test");
-                player.TakeMeleeHit(enemy);
+                player.TakeMeleeDamage(enemy);
                 justTookDamage = true;
             }
             else

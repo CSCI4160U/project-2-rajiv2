@@ -43,7 +43,7 @@ public class Player : MonoBehaviour
         bossesDefeatedScenes = new List<string>();
     }
 
-    public void TakeMeleeHit(Enemy enemy)
+    public void TakeMeleeDamage(Enemy enemy)
     {
         int damage = (enemy.attack - this.currentDefense);
 
@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void GetShot(Enemy enemy)
+    public void TakeGunDamage(Enemy enemy)
     {
         int damage = (enemy.shootingDamage - this.currentDefense);
 
