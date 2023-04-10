@@ -68,8 +68,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Back
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 10276bfede590b740a2f9a509087eb52, type: 2}
-  m_sharedMaterial: {fileID: 8626403251529430530, guid: 10276bfede590b740a2f9a509087eb52, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -281,7 +281,7 @@ GameObject:
   - component: {fileID: 3474806696277850627}
   - component: {fileID: 863975860009019574}
   - component: {fileID: 7053964110253626081}
-  - component: {fileID: 4567663291430807920}
+  - component: {fileID: 6158134281038434194}
   m_Layer: 5
   m_Name: SubMenu
   m_TagString: Untagged
@@ -372,7 +372,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &4567663291430807920
+--- !u!114 &6158134281038434194
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -381,9 +381,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5638308936357245561}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f11c8aa9c02d9df478877e110d5a89ed, type: 3}
+  m_Script: {fileID: 11500000, guid: 9ea7ba1804293074785500c66e6b75be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pauseMenu: {fileID: 0}
+  deathScreen: {fileID: 0}
+  player: {fileID: 0}
 --- !u!1 &7305683533031736480
 GameObject:
   m_ObjectHideFlags: 0

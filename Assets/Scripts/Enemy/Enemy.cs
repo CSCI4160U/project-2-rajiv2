@@ -156,6 +156,7 @@ public class Enemy : MonoBehaviour
      */
     private void Die()
     {
+        stateMachine.SetState(EnemyState.Dead);
         isDead = true;
 
         Debug.Log(enemyName + " has been defeated!");

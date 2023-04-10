@@ -195,6 +195,7 @@ public class EnemyAIStateMachine : MonoBehaviour
         direction.y = 0.0f;
 
         //Debug.Log("dista: " + distanceToTarget);
+        Debug.Log(direction.magnitude);
         if (direction.magnitude < attackDistance)
         {
             agent.enabled = false; // don't walk

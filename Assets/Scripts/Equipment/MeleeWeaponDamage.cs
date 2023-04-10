@@ -1,7 +1,6 @@
 using UnityEngine;
 public class MeleeWeaponDamage : MonoBehaviour
 {
-    [SerializeField] private int damage = 5;
     [SerializeField] private GameObject user = null;
 
     private Player player;
@@ -20,7 +19,7 @@ public class MeleeWeaponDamage : MonoBehaviour
             {
                 user.GetComponent<Player>();
             }
-            else if (user.GetComponent<Player>() != null)
+            else if (user.GetComponent<Enemy>() != null)
             {
                 enemy = user.GetComponent<Enemy>();
             }

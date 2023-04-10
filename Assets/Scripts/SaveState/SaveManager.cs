@@ -7,7 +7,6 @@ public class SaveManager : MonoBehaviour
     public PlayerData playerData = null;
     public SceneData sceneData = null;
     public BossDefeatsData bossDefeatsData = null;
-    public SettingsData settingsData = null;
     public Player player = null;
     private string savePath;
 
@@ -25,7 +24,6 @@ public class SaveManager : MonoBehaviour
         this.playerData = new PlayerData();
         this.sceneData = new SceneData();
         this.bossDefeatsData = new BossDefeatsData();
-        this.settingsData = new SettingsData();
 
         if (Application.isEditor) {
             // if in Edit mode, save game so everything doesn't go all over the place

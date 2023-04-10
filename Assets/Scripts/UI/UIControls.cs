@@ -1,22 +1,22 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIControls : MonoBehaviour
 {
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject deathScreen;
+    [SerializeField] private Player player;
     private bool pauseMenuIsShown = false;
     private bool deathScreenIsShown = false;
-    private Player player;
-
-    private void Awake()
-    {
-        player = GetComponent<Player>();
-    }
 
     private void Update()
     {
-        TogglePauseMenu();
-        ShowDeathScreen();
+        // have access to ingame menu controls
+        if(player != null)
+        {
+            TogglePauseMenu();
+            ShowDeathScreen();
+        }
     }
 
     public void ClosePauseMenu()
