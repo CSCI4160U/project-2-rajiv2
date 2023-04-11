@@ -220,7 +220,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: INSOMNIA
+  m_text: UNTITLED
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -247,8 +247,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 300
-  m_fontSizeBase: 300
+  m_fontSize: 200
+  m_fontSizeBase: 200
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -336,7 +336,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6598321016912827551}
-  - component: {fileID: 7213130357091079696}
+  - component: {fileID: 3234960146251991281}
   m_Layer: 0
   m_Name: MainMenu
   m_TagString: Untagged
@@ -367,7 +367,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7213130357091079696
+--- !u!114 &3234960146251991281
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -376,12 +376,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3841671706930316979}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ea7ba1804293074785500c66e6b75be, type: 3}
+  m_Script: {fileID: 11500000, guid: f11c8aa9c02d9df478877e110d5a89ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseMenu: {fileID: 0}
-  deathScreen: {fileID: 0}
-  player: {fileID: 0}
 --- !u!1 &8302569703578267285
 GameObject:
   m_ObjectHideFlags: 0
@@ -761,7 +758,6 @@ GameObject:
   - component: {fileID: 8302569703899054017}
   - component: {fileID: 8302569703899054016}
   - component: {fileID: 8302569703899054019}
-  - component: {fileID: 7247496740252395962}
   m_Layer: 5
   m_Name: PlayMenu
   m_TagString: Untagged
@@ -854,21 +850,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &7247496740252395962
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8302569703899054020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ea7ba1804293074785500c66e6b75be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pauseMenu: {fileID: 0}
-  deathScreen: {fileID: 0}
-  player: {fileID: 0}
 --- !u!1 &8302569703908162747
 GameObject:
   m_ObjectHideFlags: 0
@@ -1314,6 +1295,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 8302569703899054020}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &8302569704338134845
 GameObject:
@@ -1956,8 +1949,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7247496740252395962}
-        m_TargetAssemblyTypeName: UIControls, Assembly-CSharp
+      - m_Target: {fileID: 3234960146251991281}
+        m_TargetAssemblyTypeName: MenuControls, Assembly-CSharp
         m_MethodName: LoadGame
         m_Mode: 1
         m_Arguments:
@@ -4540,7 +4533,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7213130357091079696}
+      objectReference: {fileID: 3234960146251991281}
     - target: {fileID: 3403936460261302653, guid: 3278644d8c322bd45a26d2fd04f60ba9,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -4564,7 +4557,7 @@ PrefabInstance:
     - target: {fileID: 3403936460261302653, guid: 3278644d8c322bd45a26d2fd04f60ba9,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: UIControls, Assembly-CSharp
+      value: MenuControls, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3403936460261302653, guid: 3278644d8c322bd45a26d2fd04f60ba9,
         type: 3}

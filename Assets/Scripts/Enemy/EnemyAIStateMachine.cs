@@ -30,6 +30,7 @@ public class EnemyAIStateMachine : MonoBehaviour
     [Header("Attacking")]
     [SerializeField] private int numAttackAnimations = 5;
     [SerializeField] private float attackDistance;
+    [SerializeField] private float killCoolDownTime = 2;
     [Header("During Emergencies")]
     [SerializeField] private float useDistance;
     [SerializeField] private float runSpeed;
@@ -79,7 +80,25 @@ public class EnemyAIStateMachine : MonoBehaviour
 
         animator.SetBool("isDead", false);
         animator.SetBool("isReviving", false);
+        ResetWayPoint();
         SetState(EnemyState.Patrolling);
+    }
+
+    IEnumerator KillCoolDown()
+    {
+        mustAttack = false;
+        
+        yield return new WaitForSeconds(killCoolDownTime);
+
+        ResetWayPoint();
+        SetState(EnemyState.Patrolling);
+    }
+
+    private void ResetWayPoint()
+    {
+        agent.enabled = true;
+        waypointIndex = 0;
+        agent.SetDestination(waypoints[waypointIndex].position);
     }
 
     public EnemyState GetState()
@@ -97,7 +116,6 @@ public class EnemyAIStateMachine : MonoBehaviour
             // resume patrol
             agent.enabled = true;
             waypointIndex = 0;
-            agent.SetDestination(waypoints[waypointIndex].position);
         }
         else if (newState == EnemyState.Alerted)
         {
@@ -252,8 +270,8 @@ public class EnemyAIStateMachine : MonoBehaviour
         }
         else
         {
-            mustAttack = false;
-            SetState(EnemyState.Patrolling);
+            // killed player
+            StartCoroutine(KillCoolDown());
         }
         
     }

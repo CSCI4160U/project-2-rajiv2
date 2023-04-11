@@ -95,8 +95,36 @@ public class Player : MonoBehaviour
     {
         if (health <= 0)
         {
-            isDead = true;
+            Die();
         }
+    }
+
+    /*
+     * Function does death animation disables colliders
+     * and disables this component when the enemy is dead
+     */
+    private void Die()
+    {
+        isDead = true;
+
+        Debug.Log(userName + " has been defeated!");
+
+        // show message in console for 3 seconds
+        HUDConsole._instance.Log(userName + " has been defeated!", 3f);
+
+        // disable Player from being able to hit enemy
+        this.GetComponent<Collider>().enabled = false;
+
+        // disable element
+        this.enabled = false;
+
+        // set to Default layer so enemies don't follow anymore
+        this.gameObject.layer = 0;
+
+        // or
+
+        // face camera up slowly, then move to the floor
+
     }
 
     public void UpdateHealthSlider()

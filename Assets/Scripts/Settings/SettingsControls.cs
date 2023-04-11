@@ -32,8 +32,6 @@ public class SettingsControls : MonoBehaviour
         }
 
         LoadSettings();
-
-        this.gameObject.SetActive(false);
     }
 
     private void FixedUpdate()

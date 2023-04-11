@@ -3365,6 +3365,12 @@ Camera:
     type: 3}
   m_PrefabInstance: {fileID: 7252053109578490909}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1982515755875481098 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9162354029960090135, guid: f44fede5e04e2e14f8febb322b7737f8,
+    type: 3}
+  m_PrefabInstance: {fileID: 7252053109578490909}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2407320627613355764 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5029661766253816553, guid: f44fede5e04e2e14f8febb322b7737f8,
@@ -3417,7 +3423,7 @@ PrefabInstance:
     - target: {fileID: 2398498519469096816, guid: bc3760471d83b5846b45744d968f1c3e,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4885629906409012881, guid: bc3760471d83b5846b45744d968f1c3e,
         type: 3}
@@ -3574,6 +3580,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 7673387324666646887, guid: bc3760471d83b5846b45744d968f1c3e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7849783698304207676, guid: bc3760471d83b5846b45744d968f1c3e,
         type: 3}
       propertyPath: m_RootOrder
@@ -3637,7 +3648,7 @@ PrefabInstance:
     - target: {fileID: 7944777047871832796, guid: bc3760471d83b5846b45744d968f1c3e,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc3760471d83b5846b45744d968f1c3e, type: 3}
@@ -3738,6 +3749,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9162354031292568555, guid: f44fede5e04e2e14f8febb322b7737f8,
+        type: 3}
+      propertyPath: firstPersonCamera
+      value: 
+      objectReference: {fileID: 1982515755875481098}
     - target: {fileID: 9162354031292568558, guid: f44fede5e04e2e14f8febb322b7737f8,
         type: 3}
       propertyPath: m_Name

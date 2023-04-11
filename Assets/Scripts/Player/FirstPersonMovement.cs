@@ -1,5 +1,8 @@
 using UnityEngine;
+
 [RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(Player))]
+
 public class FirstPersonMovement : MonoBehaviour
 {
     [Header("General")]
@@ -14,12 +17,14 @@ public class FirstPersonMovement : MonoBehaviour
     [SerializeField] private float jumpSpeed = 7f;
     [Header("Looking")]
     [SerializeField] private float mouseSensitivity = 1000f;
-    [SerializeField] private Transform camera;
+    [SerializeField] private Transform firstPersonCamera;
     
     [Header("Crouching")]
     [SerializeField] private float cameraCrouchY;
     [SerializeField] private float crouchControllerHeight;
     [SerializeField] private float crouchControllerCenterY;
+
+    private Player player;
     private float cameraDefaultY;
 
     private CharacterController controller;
@@ -33,39 +38,20 @@ public class FirstPersonMovement : MonoBehaviour
 
     private void Awake()
     {
-        cameraDefaultY = camera.position.y;
+        cameraDefaultY = firstPersonCamera.position.y;
         controller = GetComponent<CharacterController>();
         defaultControllerHeight = controller.height;
         defaultControllerCenterY = controller.center.y;
     }
     private void Start()
     {
+        player = GetComponent<Player>();
         Cursor.lockState = CursorLockMode.Locked;
         verticalRotation = 0f;
     }
-    void Update()
-    {
-        // are we on the ground?
-        RaycastHit collision;
-        if (Physics.Raycast(groundPosition.position, Vector3.down, out
-        collision, 0.2f, groundLayers))
-        {
-            isGrounded = true;
-        }
-        else
-        {
-            isGrounded = false;
-        }
-        // update vertical speed
-        if (!isGrounded)
-        {
-            verticalSpeed += gravityFactor * -9.81f * Time.deltaTime;
-        }
-        else
-        {
-            verticalSpeed = 0f;
-        }
 
+    private void Crouch()
+    {
         // handle crouching
         if (Input.GetButtonDown("Crouch") && isGrounded)
         {
@@ -90,7 +76,10 @@ public class FirstPersonMovement : MonoBehaviour
         //    controller.height = defaultControllerHeight;
         //    controller.center = new Vector3(controller.center.x, defaultControllerCenterY, controller.center.z);
         //}
+    }
 
+    private void LookAround()
+    {
         // adjust rotations based on mouse position
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity *
         Time.deltaTime;
@@ -100,8 +89,11 @@ public class FirstPersonMovement : MonoBehaviour
         Time.deltaTime;
         verticalRotation -= mouseY;
         verticalRotation = Mathf.Clamp(verticalRotation, -90f, 90f);
-        camera.localEulerAngles = new Vector3(verticalRotation, 0f,
-        0f);
+        firstPersonCamera.localEulerAngles = new Vector3(verticalRotation, 0f, 0f);
+    }
+
+    private void Move()
+    {
         Vector3 x = Vector3.zero;
         Vector3 y = Vector3.zero;
         Vector3 z = Vector3.zero;
@@ -129,7 +121,42 @@ public class FirstPersonMovement : MonoBehaviour
         Vector3 movement = x + y + z;
         movement *= Time.deltaTime;
         controller.Move(movement);
+    }
 
-        
+    private void CheckIfGrounded()
+    {
+        // are we on the ground?
+        RaycastHit collision;
+        if (Physics.Raycast(groundPosition.position, Vector3.down, out
+        collision, 0.2f, groundLayers))
+        {
+            isGrounded = true;
+        }
+        else
+        {
+            isGrounded = false;
+        }
+        // update vertical speed
+        if (!isGrounded)
+        {
+            verticalSpeed += gravityFactor * -9.81f * Time.deltaTime;
+        }
+        else
+        {
+            verticalSpeed = 0f;
+        }
+    }
+
+    void Update()
+    {
+
+        CheckIfGrounded();
+
+        if (!player.isDead)
+        {
+            Crouch();
+            LookAround();
+            Move();
+        }
     }
 }
