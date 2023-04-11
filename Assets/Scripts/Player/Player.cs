@@ -30,7 +30,9 @@ public class Player : MonoBehaviour
     // store Scene names where Enemy was defeated
     public List<string> bossesDefeatedScenes;
 
-    [SerializeField] private AudioSource takeDamageSoundEffect;
+    [SerializeField] private AudioSource getHurtSoundEffect;
+    [SerializeField] private AudioSource takeMeleeDamageSoundEffect;
+    [SerializeField] private AudioSource getShotSoundEffect;
 
     public void Awake()
     {
@@ -52,16 +54,18 @@ public class Player : MonoBehaviour
             health -= damage;
 
             // enemy attack animation
-            enemy.GetComponent<Animator>().SetTrigger("attacked");
+            //enemy.GetComponent<Animator>().SetTrigger("attacked");
 
             Debug.Log(enemy.enemyName + " has dealt " + damage + " damage to " + userName);
 
             // show message in console for 3 seconds
             HUDConsole._instance.Log(enemy.enemyName + " has dealt " + damage + " damage to " + userName, 3f);
 
-            this.GetComponent<Animator>().SetTrigger("tookDamage");
-            takeDamageSoundEffect.Play();
+            //getHurtSoundEffect.Play();
+            takeMeleeDamageSoundEffect.Play();
         }
+
+        CheckHealth();
     }
 
     public void TakeGunDamage(Enemy enemy)
@@ -80,9 +84,18 @@ public class Player : MonoBehaviour
             // show message in console for 3 seconds
             HUDConsole._instance.Log(enemy.enemyName + " has shot " + userName, 3f);
 
-            this.GetComponent<Animator>().SetTrigger("tookDamage");
-            //takeDamageSoundEffect.Play();
-            //bulletHitSoundEffect.Play();
+            //getHurtSoundEffect.Play();
+            //getShotSoundEffect.Play();
+        }
+
+        CheckHealth();
+    }
+
+    private void CheckHealth()
+    {
+        if (health <= 0)
+        {
+            isDead = true;
         }
     }
 

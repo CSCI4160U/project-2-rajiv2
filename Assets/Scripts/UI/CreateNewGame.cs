@@ -44,9 +44,9 @@ public class CreateNewGame : MonoBehaviour
         if (newUserName != string.Empty)
         {
             Debug.Log("Created a new game");
-            if (Globals.mainSceneName_Level1 != string.Empty)
+            if (Globals.mainScene != string.Empty)
             {
-                SceneManager.LoadScene(Globals.mainSceneName_Level1);
+                SceneManager.LoadScene(Globals.mainScene);
                 pressedCreateGame = true;
                 Debug.Log("Trying to create new game...");
             }

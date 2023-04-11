@@ -3,7 +3,9 @@ using System.IO;
 
 public class Globals : MonoBehaviour
 {
-    public static string mainSceneName_Level1 = "MainScene_Level1";
+    public static string mainScene = "DoorWayRoom";
+    public static string mainMenuScene = "MainMenu";
+    public static string loadingScene = "LoadingScene";
     public static string savePath = Application.persistentDataPath + "/saveData/";
     
     public static bool NoSaveFilesFound()

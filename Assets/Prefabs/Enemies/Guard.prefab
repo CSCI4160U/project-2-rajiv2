@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 1687855411293130779}
   m_Layer: 7
   m_Name: Guard
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -165,10 +165,11 @@ MonoBehaviour:
   animator: {fileID: 4074442149658143265}
   consolePositions: []
   numAttackAnimations: 5
-  attackDistance: 2
+  attackDistance: 3
   useDistance: 2
-  runSpeed: 6
+  runSpeed: 8
   alarmSystem: {fileID: 0}
+  reviveCoolDownTime: 10
 --- !u!195 &1687855411293130778
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -210,7 +211,7 @@ MonoBehaviour:
   maxHealth: 30
   health: 0
   isDead: 0
-  reviveTime: 0
+  reviveTime: 10
   numberOfLives: 1
   value: 100
   isShooter: 0

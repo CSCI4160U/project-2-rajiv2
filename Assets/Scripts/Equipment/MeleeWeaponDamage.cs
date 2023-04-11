@@ -3,8 +3,8 @@ public class MeleeWeaponDamage : MonoBehaviour
 {
     [SerializeField] private GameObject user = null;
 
-    private Player player;
-    private Enemy enemy;
+    private Player player = null;
+    private Enemy enemy = null;
 
      private void Update()
     {
@@ -15,23 +15,25 @@ public class MeleeWeaponDamage : MonoBehaviour
     {
         if(user != null)
         {
-            if (user.GetComponent<Player>() != null)
-            {
-                user.GetComponent<Player>();
-            }
-            else if (user.GetComponent<Enemy>() != null)
+            if (user.GetComponent<Enemy>() != null)
             {
                 enemy = user.GetComponent<Enemy>();
+            }
+            if (user.GetComponent<Player>() != null)
+            {
+                player = user.GetComponent<Player>();
             }
         }
         
     }
     public void OnTriggerEnter(Collider other)
     {
+
         // if Enemy is dealing attack
         if (enemy != null)
         {
-            if (other.CompareTag("Player"))
+            Debug.Log("Enemy NOT NULL");
+            if (other.gameObject.CompareTag("Player"))
             {
                 Debug.Log("Melee Damage on " + other.gameObject.name);
                 Player playerTakingDamage = other.GetComponent<Player>();
@@ -40,17 +42,21 @@ public class MeleeWeaponDamage : MonoBehaviour
                     playerTakingDamage.TakeMeleeDamage(enemy);
                 }
             }
-        }
-        // if Player is dealing attack
-        if (player != null)
-        {
-            Enemy enemyTakingDamage = other.GetComponent<Enemy>();
-            if (enemyTakingDamage != null)
+            else
             {
-                Debug.Log("Melee Damage on " + other.gameObject.name);
-                enemyTakingDamage.TakeMeleeDamage(player);
+                Debug.Log("PLAYER TAG DNE");
             }
         }
+        // if Player is dealing attack
+        //if (player != null)
+        //{
+        //    Enemy enemyTakingDamage = other.GetComponent<Enemy>();
+        //    if (enemyTakingDamage != null)
+        //    {
+        //        Debug.Log("Melee Damage on " + other.gameObject.name);
+        //        enemyTakingDamage.TakeMeleeDamage(player);
+        //    }
+        //}
         
     }
 }

@@ -71,7 +71,6 @@ public class PlayerShoot : MonoBehaviour
 
         if(muzzleFlash != null)
         {
-            Debug.Log("Bruh");
             muzzleFlash.Play();
         }
         

@@ -9,7 +9,7 @@ public class MenuControls : MonoBehaviour
     public void GoToMainMenu()
     {
         Debug.Log("Opened MainMenu");
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene(Globals.mainMenuScene);
     }
 
     public void LoadGame()
@@ -28,7 +28,7 @@ public class MenuControls : MonoBehaviour
             pressedLoadGame = true;
 
             // Change to Loading Scene
-            SceneManager.LoadScene("LoadingScene");
+            SceneManager.LoadScene(Globals.loadingScene);
         }
 
         
@@ -44,7 +44,7 @@ public class MenuControls : MonoBehaviour
 
     public void RestartLevel()
     {
-        SceneManager.LoadScene(Globals.mainSceneName_Level1);
+        SceneManager.LoadScene(Globals.mainScene);
         pressedRestartLevel = true;
         Debug.Log("Trying to restart new game...");
     }

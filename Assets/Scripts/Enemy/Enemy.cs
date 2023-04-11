@@ -22,12 +22,8 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
-        Revive();
-    }
-
-    private void Start()
-    {
         stateMachine = GetComponent<EnemyAIStateMachine>();
+        ResetEnemy();
     }
 
     /*
@@ -38,8 +34,7 @@ public class Enemy : MonoBehaviour
     {
         if (!isDead)
         {
-            stateMachine.SetTarget(player.transform);
-            stateMachine.SetState(EnemyState.TargetVisible);
+            
 
             int damage = (player.GetAttackPower() - this.defense);
             if (damage > 0)
@@ -75,6 +70,9 @@ public class Enemy : MonoBehaviour
                 // increase player score
                 player.playerScore += value;
             }
+
+            stateMachine.SetTarget(player.transform);
+            stateMachine.SetState(EnemyState.TargetVisible);
         }  
     }
 
@@ -96,7 +94,7 @@ public class Enemy : MonoBehaviour
                 HUDConsole._instance.Log(player.userName + " has dealt " + damage + " damage to " + enemyName, 3f);
 
                 // take damage animation
-                animator.SetTrigger("tookDamage");
+                //animator.SetTrigger("tookDamage");
             }
 
 
@@ -164,9 +162,6 @@ public class Enemy : MonoBehaviour
         // show message in console for 3 seconds
         HUDConsole._instance.Log(enemyName + " has been defeated!", 3f);
 
-        // do death animation
-        animator.SetTrigger("isDead");
-
         // disable Player from being able to hit enemy
         this.GetComponent<Collider>().enabled = false;
 
@@ -175,32 +170,20 @@ public class Enemy : MonoBehaviour
         
     }
 
-    public void DoWalkAnimation()
-    {
-        animator.SetTrigger("isWalking");
-    }
-
-    public void StopWalkAnimation()
-    {
-        animator.ResetTrigger("isWalking");
-    }
-
-    public void DoAttackAnimation()
-    {
-        // do death animation
-        animator.SetTrigger("attacked");
-    }
-
     /*
      * Function re enables colliders and component of enemy
      * and resets health and brings enemy back to life
      */
     public void Revive()
     {
+        //animator.ResetTrigger("tookDamage");
+        stateMachine.SetState(EnemyState.Reviving);
 
-        // make enemy alive
-        animator.ResetTrigger("isDead");
+        ResetEnemy();
+    }
 
+    private void ResetEnemy()
+    {
         // enable Player from being able to hit enemy
         this.GetComponent<Collider>().enabled = true;
 

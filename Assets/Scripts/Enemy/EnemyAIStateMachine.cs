@@ -1,9 +1,10 @@
 using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
+
 public enum EnemyState
 {
-    Patrolling, Alerted, TargetVisible, Dead
+    Patrolling, Alerted, TargetVisible, Dead, Reviving
 }
 [RequireComponent(typeof(Enemy))]
 public class EnemyAIStateMachine : MonoBehaviour
@@ -31,15 +32,16 @@ public class EnemyAIStateMachine : MonoBehaviour
     [SerializeField] private float attackDistance;
     [Header("During Emergencies")]
     [SerializeField] private float useDistance;
-    
     [SerializeField] private float runSpeed;
     [SerializeField] private AlarmSystem alarmSystem;
+    [Header("Reviving")]
+    [SerializeField] private float reviveCoolDownTime = 10;
+
     private NavMeshAgent agent = null;
     
     private bool mustEnterCode = false;
     private bool mustAttack = false;
     private bool alarmActivated = false;
-    private bool coolDownCurrentAttack = false;
     private float walkingSpeed;
     private Enemy enemy;
 
@@ -65,6 +67,21 @@ public class EnemyAIStateMachine : MonoBehaviour
         agent.enabled = true;
         animator.speed = 1f;
     }
+
+    IEnumerator ReviveCoolDown()
+    {
+        agent.enabled = false;
+        animator.SetBool("isReviving", true);
+        animator.SetFloat("Forward", 0.0f);
+        animator.SetBool("isDead", true);
+
+        yield return new WaitForSeconds(reviveCoolDownTime);
+
+        animator.SetBool("isDead", false);
+        animator.SetBool("isReviving", false);
+        SetState(EnemyState.Patrolling);
+    }
+
     public EnemyState GetState()
     {
         return currentState;
@@ -74,11 +91,13 @@ public class EnemyAIStateMachine : MonoBehaviour
         if (currentState == newState)
             return;
         currentState = newState;
+        
         if (newState == EnemyState.Patrolling)
         {
             // resume patrol
             agent.enabled = true;
             waypointIndex = 0;
+            agent.SetDestination(waypoints[waypointIndex].position);
         }
         else if (newState == EnemyState.Alerted)
         {
@@ -98,7 +117,7 @@ public class EnemyAIStateMachine : MonoBehaviour
             {
                 animator.SetFloat("Forward", 0.0f);
             }
-            
+            animator.ResetTrigger("tookDamage");
             lastKnownTargetPosition = target.transform.position;
         }
         else if (newState == EnemyState.Dead)
@@ -106,7 +125,15 @@ public class EnemyAIStateMachine : MonoBehaviour
             // disable navigation and play death animation
             agent.enabled = false;
             animator.SetFloat("Forward", 0.0f);
-            animator.SetBool("Dead", true);
+            animator.SetBool("isDead", true);
+            animator.ResetTrigger("isEmergency");
+            mustAttack = false;
+            mustEnterCode = false;
+        }
+        else if (newState == EnemyState.Reviving)
+        {
+            
+            StartCoroutine(ReviveCoolDown());
         }
     }
     public void SetTarget(Transform target)
@@ -126,6 +153,7 @@ public class EnemyAIStateMachine : MonoBehaviour
         }
         else if (currentState == EnemyState.Patrolling)
         {
+           
             Patrol();
         }
         else if (currentState == EnemyState.Alerted)
@@ -182,6 +210,7 @@ public class EnemyAIStateMachine : MonoBehaviour
         }
         else
         {
+            animator.ResetTrigger("isEmergency");
             agent.speed = walkingSpeed;
         }
     }
@@ -191,39 +220,42 @@ public class EnemyAIStateMachine : MonoBehaviour
         Player player = target.GetComponent<Player>();
 
         //float distanceToTarget = Vector3.Distance(agent.transform.position, player.transform.position);
-        Vector3 direction = target.position - agent.transform.position;
+        Vector3 direction = player.transform.position - agent.transform.position;
         direction.y = 0.0f;
 
-        //Debug.Log("dista: " + distanceToTarget);
-        Debug.Log(direction.magnitude);
-        if (direction.magnitude < attackDistance)
+        if (!player.isDead)
         {
-            agent.enabled = false; // don't walk
-            animator.SetFloat("Forward", 0.0f);
-            animator.SetInteger("AttackNum", Random.Range(1, numAttackAnimations));
-            animator.SetTrigger("Attack");
+            if (direction.magnitude < attackDistance)
+            {
+                agent.enabled = false; // don't walk
+                animator.SetFloat("Forward", 0.0f);
+                animator.SetInteger("AttackNum", Random.Range(1, numAttackAnimations));
+                animator.SetTrigger("Attack");
 
-            // we have previously started attacking
+                // we have previously started attacking
 
-            // turn toward the target
-            Quaternion lookRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 0.1f);
-        }
-        else if (direction.magnitude < alertDistance)
-        {
-            // we are not close enough to attack, but are close enough to detect
-            // navigate toward the target
-            agent.enabled = true; // walk toward destination
-            agent.speed = runSpeed;
-            agent.SetDestination(target.position);
-            animator.SetFloat("Forward", agent.velocity.magnitude);
+                // turn toward the target
+                Quaternion lookRotation = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 0.1f);
+            }
+            else
+            {
+
+                // we are not close enough to attack, but are close enough to detect
+                // navigate toward the target
+                agent.enabled = true; // walk toward destination
+                agent.speed = runSpeed;
+                agent.SetDestination(target.position);
+                animator.SetFloat("Forward", agent.velocity.magnitude);
+
+            }
         }
         else
         {
-            agent.SetDestination(target.position);
-            animator.SetFloat("Forward", agent.velocity.magnitude);
-            
+            mustAttack = false;
+            SetState(EnemyState.Patrolling);
         }
+        
     }
     private void EnterCode()
     {
@@ -284,7 +316,6 @@ public class EnemyAIStateMachine : MonoBehaviour
     }
     private void Patrol()
     {
-        mustAttack = false;
         
         Vector3 destination = waypoints[waypointIndex].position;
         float distanceToTarget = Vector3.Distance(agent.transform.position, destination);

@@ -52,7 +52,11 @@ public class FieldOfView : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(delay);
-            LookForTargets();
+
+            if(stateMachine.GetState() != EnemyState.Dead && stateMachine.GetState() != EnemyState.Reviving)
+            {
+                LookForTargets();
+            }
         }
     }
 
