@@ -78,8 +78,6 @@ MonoBehaviour:
   bossDefeatsData:
     bossesDefeatedNames: []
     bossesDefeatedScenes: []
-  settingsData:
-    musicVolume: 0
   player: {fileID: 0}
 --- !u!114 &8813655528100904149
 MonoBehaviour:
@@ -744,6 +742,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: TogglePauseMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 2384535722034522442, guid: c02ad129c9f33ee49abca96e6e859c4a,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 800
       objectReference: {fileID: 0}
     - target: {fileID: 4350673340116437058, guid: c02ad129c9f33ee49abca96e6e859c4a,
         type: 3}

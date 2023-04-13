@@ -169,6 +169,21 @@ public class Player : MonoBehaviour
         gun = null;
     }
 
+    public bool HasGun()
+    {
+        return gun != null;
+    }
+
+    public void Unequip()
+    {
+
+    }
+
+    public void Equip()
+    {
+
+    }
+
     private void Update()
     {
         UpdateHealthSlider();
@@ -183,10 +198,6 @@ public class Player : MonoBehaviour
         return currentAttack;
     }
 
-    public bool HasGun()
-    {
-        return gun != null;
-    }
     public void SetAttackPower(int newAttack)
     {
         currentAttack = newAttack;

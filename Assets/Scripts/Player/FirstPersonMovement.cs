@@ -115,6 +115,7 @@ public class FirstPersonMovement : MonoBehaviour
         {
             x = transform.right * Input.GetAxis("Horizontal") *
             movementSpeed;
+
             z = transform.forward * Input.GetAxis("Vertical") *
             movementSpeed;
         }
