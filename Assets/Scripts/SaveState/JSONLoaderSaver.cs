@@ -2,8 +2,8 @@ using UnityEngine;
 using System.IO;
 public class JSONLoaderSaver : MonoBehaviour
 {
-    public static void SaveBossDefeatsDataAsJSON(string savePath, string fname,
-    BossDefeatsData bossDefeatsData)
+    public static void SaveGameStatisticsDataAsJSON(string savePath, string fname,
+    GameStatisticsData bossDefeatsData)
     {
         Debug.Log("savePath: " + savePath);
         if (!Directory.Exists(savePath))
@@ -15,13 +15,13 @@ public class JSONLoaderSaver : MonoBehaviour
         File.WriteAllText(savePath + fname, json);
     }
 
-    public static BossDefeatsData LoadBossDefeatsDataFromJSON(string savePath, string
+    public static GameStatisticsData LoadGameStatisticsDataFromJSON(string savePath, string
     fname)
     {
         if (File.Exists(savePath + fname))
         {
             string json = File.ReadAllText(savePath + fname);
-            BossDefeatsData bossDefeatsData = JsonUtility.FromJson<BossDefeatsData>(json);
+            GameStatisticsData bossDefeatsData = JsonUtility.FromJson<GameStatisticsData>(json);
             return bossDefeatsData;
         }
         else

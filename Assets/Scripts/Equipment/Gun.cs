@@ -6,5 +6,6 @@ public class Gun : MonoBehaviour
     public int power;
     public float range = 100f;
     public int numBullets;
+    public int maxNumBullets;
     public AudioSource shotSoundEffect;
 }

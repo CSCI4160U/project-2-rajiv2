@@ -166,6 +166,7 @@ MonoBehaviour:
   consolePositions: []
   numAttackAnimations: 5
   attackDistance: 3
+  killCoolDownTime: 2
   useDistance: 2
   runSpeed: 8
   alarmSystem: {fileID: 0}
@@ -237,7 +238,7 @@ MonoBehaviour:
     m_Bits: 64
   wallLayer:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 896
   targetScanDelay: 0.25
   isAlerted: 0
 --- !u!1001 &7629597109305481136

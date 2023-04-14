@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34537ca22d32dda4ab5a6933d6c5e409, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
 --- !u!1 &9162354029802953801
 GameObject:
   m_ObjectHideFlags: 0
@@ -272,7 +273,7 @@ MonoBehaviour:
     m_Bits: 8
   canAirControl: 1
   jumpSpeed: 10
-  mouseSensitivity: 150
+  mouseSensitivity: 125
   firstPersonCamera: {fileID: 0}
   cameraCrouchY: 0
   crouchControllerHeight: 0
@@ -299,6 +300,7 @@ MonoBehaviour:
   startingTransform: {fileID: 11400000, guid: d9c3b6883916f9d43a749d1c9b94cab3, type: 2}
   bossesDefeatedNames: []
   bossesDefeatedScenes: []
+  puzzlesCompleted: []
   getHurtSoundEffect: {fileID: 0}
   takeMeleeDamageSoundEffect: {fileID: 625321251195556043}
   getShotSoundEffect: {fileID: 0}

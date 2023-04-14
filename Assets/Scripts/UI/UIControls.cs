@@ -14,15 +14,25 @@ public class UIControls : MonoBehaviour
         // have access to ingame menu controls
         if(player != null)
         {
-            TogglePauseMenu();
+            if (!player.isDead)
+            {
+                deathScreenIsShown = false;
+                TogglePauseMenu();
+            }
+            else
+            {
+                deathScreenIsShown = true;
+            }
             ShowDeathScreen();
         }
     }
 
     public void ClosePauseMenu()
     {
+        Debug.Log("Close Pause Menu");
         if (pauseMenu != null)
         {
+            Cursor.lockState = CursorLockMode.Locked;
             pauseMenuIsShown = false;
             pauseMenu.GetComponent<Canvas>().enabled = pauseMenuIsShown;
         }
@@ -38,25 +48,33 @@ public class UIControls : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Debug.Log("Toggled Pause Menu");
-            pauseMenuIsShown = !pauseMenuIsShown;
+            if (pauseMenuIsShown)
+            {
+                pauseMenuIsShown = false;
+                
+                Cursor.lockState = CursorLockMode.Locked;
+
+                // TODO: Pause all In-Game Activity
+                player.GetComponent<FirstPersonMovement>().enabled = true;
+            }
+            else
+            {
+                pauseMenuIsShown = true;
+                Cursor.lockState = CursorLockMode.None;
+
+                // TODO: Unpause all In-Game Activity
+                player.GetComponent<FirstPersonMovement>().enabled = false;
+            }
         }
+
+        
     }
 
     public void ShowDeathScreen()
     {
-
         if (deathScreen != null)
         {
             deathScreen.GetComponent<Canvas>().enabled = deathScreenIsShown;
-        }
-
-        if (player.isDead)
-        {
-            deathScreenIsShown = true;
-        }
-        else
-        {
-            deathScreenIsShown = false;
         }
     }
 }

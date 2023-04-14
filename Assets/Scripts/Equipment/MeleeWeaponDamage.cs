@@ -32,7 +32,6 @@ public class MeleeWeaponDamage : MonoBehaviour
         // if Enemy is dealing attack
         if (enemy != null)
         {
-            Debug.Log("Enemy NOT NULL");
             if (other.gameObject.CompareTag("Player"))
             {
                 Debug.Log("Melee Damage on " + other.gameObject.name);
@@ -41,10 +40,6 @@ public class MeleeWeaponDamage : MonoBehaviour
                 {
                     playerTakingDamage.TakeMeleeDamage(enemy);
                 }
-            }
-            else
-            {
-                Debug.Log("PLAYER TAG DNE");
             }
         }
         // if Player is dealing attack

@@ -19,7 +19,7 @@ public class PlayerShoot : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") && player.HasGun())
+        if (Input.GetButtonDown("Fire1") && player.HasGun() && !player.isDead)
         {
             Shoot();
         }
@@ -57,11 +57,25 @@ public class PlayerShoot : MonoBehaviour
         }
         else if (Physics.Raycast(mainCamera.position, mainCamera.forward, out hit, player.gun.range, interactiveLayers))
         {
+            RotatingPlatform rotatingPlatform = hit.collider.GetComponent<RotatingPlatform>();
+            MovingPlatform movingPlatform = hit.collider.GetComponent<MovingPlatform>();
+            //PatternBlock patternBlock = hit.collider.GetComponent<PatternBlock>();
             // if is a pattern block (pattern game)
-                // change interactive color
-                // set it active in the array of interactives
+            // change interactive color
+            // set it active in the array of interactives
             // if is moving platform
+            if (movingPlatform != null)
+            {
                 // activate Coroutine to stop movement / fully stop
+                StartCoroutine(movingPlatform.PauseMovement());
+            }
+            // if is rotating platform
+            else if (rotatingPlatform != null)
+            {
+                // activate Coroutine to stop movement / fully stop
+                StartCoroutine(rotatingPlatform.PauseMovement());
+            }
+
             Debug.Log("Shot the following interactive object: " + hit.collider.name);
         }
 

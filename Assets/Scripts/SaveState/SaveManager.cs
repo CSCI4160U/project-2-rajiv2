@@ -6,7 +6,7 @@ public class SaveManager : MonoBehaviour
 {
     public PlayerData playerData = null;
     public SceneData sceneData = null;
-    public BossDefeatsData bossDefeatsData = null;
+    public GameStatisticsData gameStatisticsData = null;
     public Player player = null;
     private string savePath;
 
@@ -23,7 +23,7 @@ public class SaveManager : MonoBehaviour
         Debug.Log("Saving to path: " + savePath);
         this.playerData = new PlayerData();
         this.sceneData = new SceneData();
-        this.bossDefeatsData = new BossDefeatsData();
+        this.gameStatisticsData = new GameStatisticsData();
 
         if (Application.isEditor) {
             // if in Edit mode, save game so everything doesn't go all over the place
@@ -41,13 +41,13 @@ public class SaveManager : MonoBehaviour
                 StartCoroutine(LoadScene());
                 MenuControls.pressedLoadGame = false;
             }
-            if (DoorWay.enteredDoorWay)
+            if (DoorPortal.enteredDoorPortal)
             {
                 // put player in starting position for the active Scene
                 player.transform.position = player.startingTransform.initialPosition;
                 player.transform.rotation = player.startingTransform.initialRotation;
                 player.transform.localScale = player.startingTransform.initialSize;
-                DoorWay.enteredDoorWay = false;
+                DoorPortal.enteredDoorPortal = false;
             }
         }
 
@@ -73,7 +73,7 @@ public class SaveManager : MonoBehaviour
     public void SaveGame()
     {
         SavePlayer();
-        SaveBossDefeats();
+        SaveGameStatistics();
         SaveScene();
 
         HUDConsole._instance.Log("Saved Game successfully.",2f);
@@ -85,7 +85,7 @@ public class SaveManager : MonoBehaviour
     public void LoadGame()
     {
         LoadPlayer();
-        LoadBossDefeats();
+        LoadGameStatistics();
     }
 
     [ContextMenu("Save Player")]
@@ -99,8 +99,8 @@ public class SaveManager : MonoBehaviour
         this.playerData.playerScore = this.player.playerScore;
         this.playerData.isDead = this.player.isDead;
 
-        // if player has not entered a door way
-        if (!DoorWay.enteredDoorWay)
+        // if player has not entered a door portal
+        if (!DoorPortal.enteredDoorPortal)
         {
             this.playerData.playerPosition = this.player.transform.position;
         }
@@ -126,7 +126,7 @@ public class SaveManager : MonoBehaviour
             this.player.playerScore = playerData.playerScore;
             this.player.isDead = playerData.isDead;
 
-            if (!DoorWay.enteredDoorWay)
+            if (!DoorPortal.enteredDoorPortal)
             {
                 this.player.transform.position = playerData.playerPosition;
             }
@@ -161,7 +161,6 @@ public class SaveManager : MonoBehaviour
                 {
                     yield return null;
                 }
-
             } 
         }
         else
@@ -170,25 +169,28 @@ public class SaveManager : MonoBehaviour
         }
     }
 
-    [ContextMenu("Save BossDefeats")]
-    void SaveBossDefeats()
+    [ContextMenu("Save Game Statistics")]
+    void SaveGameStatistics()
     {
-        this.bossDefeatsData.bossesDefeatedNames = player.bossesDefeatedNames;
-        this.bossDefeatsData.bossesDefeatedScenes = player.bossesDefeatedScenes;
+        this.gameStatisticsData.bossesDefeatedNames = player.bossesDefeatedNames;
+        this.gameStatisticsData.bossesDefeatedScenes = player.bossesDefeatedScenes;
+        this.gameStatisticsData.puzzlesCompleted = player.puzzlesCompleted;
 
-        JSONLoaderSaver.SaveBossDefeatsDataAsJSON(savePath, "bossDefeatsData.json", this.bossDefeatsData);
+        JSONLoaderSaver.SaveGameStatisticsDataAsJSON(savePath, "gameStatisticsData.json", this.gameStatisticsData);
     }
-    [ContextMenu("Load BossDefeats")]
-    void LoadBossDefeats()
+    [ContextMenu("Load Game Statistics")]
+    void LoadGameStatistics()
     {
-        this.bossDefeatsData = JSONLoaderSaver.LoadBossDefeatsDataFromJSON(savePath, "bossDefeatsData.json");
+        this.gameStatisticsData = JSONLoaderSaver.LoadGameStatisticsDataFromJSON(savePath, "gameStatisticsData.json");
 
-        if (bossDefeatsData != null)
+        if (gameStatisticsData != null)
         {
-            player.bossesDefeatedNames = bossDefeatsData.bossesDefeatedNames;
-            player.bossesDefeatedScenes = bossDefeatsData.bossesDefeatedScenes;
+            player.bossesDefeatedNames = gameStatisticsData.bossesDefeatedNames;
+            player.bossesDefeatedScenes = gameStatisticsData.bossesDefeatedScenes;
+            player.puzzlesCompleted = gameStatisticsData.puzzlesCompleted;
         }
 
+        // removing already defeated bosses from the scene (TODO: only enable if player has completed the puzzle)
         for(int i = 0; i < player.bossesDefeatedNames.Count; i++)
         {
             GameObject bossDefeated = GameObject.Find(player.bossesDefeatedNames[i]);
@@ -202,4 +204,5 @@ public class SaveManager : MonoBehaviour
             }
         }
     }
+
 }

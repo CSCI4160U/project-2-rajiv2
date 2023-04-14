@@ -30,6 +30,9 @@ public class Player : MonoBehaviour
     // store Scene names where Enemy was defeated
     public List<string> bossesDefeatedScenes;
 
+    // stores names of puzzles that the player has completed
+    public List<string> puzzlesCompleted = new List<string>();
+
     [SerializeField] private AudioSource getHurtSoundEffect;
     [SerializeField] private AudioSource takeMeleeDamageSoundEffect;
     [SerializeField] private AudioSource getShotSoundEffect;
@@ -114,9 +117,6 @@ public class Player : MonoBehaviour
 
         // disable Player from being able to hit enemy
         this.GetComponent<Collider>().enabled = false;
-
-        // disable element
-        this.enabled = false;
 
         // set to Default layer so enemies don't follow anymore
         this.gameObject.layer = 0;
