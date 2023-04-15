@@ -14,11 +14,14 @@ public class Enemy : MonoBehaviour
     public bool isDead = false;
     public float reviveTime;
     public int numberOfLives;
+    public bool isShielded;
     public int value;
     public bool isShooter;
     public bool isBrawler;
+    
     [SerializeField] private Animator animator;
     private EnemyAIStateMachine stateMachine;
+    
 
     private void Awake()
     {
@@ -32,9 +35,8 @@ public class Enemy : MonoBehaviour
      */
     public void TakeMeleeDamage(Player player)
     {
-        if (!isDead)
+        if (!isDead && !isShielded)
         {
-            
 
             int damage = (player.GetAttackPower() - this.defense);
             if (damage > 0)
@@ -80,44 +82,54 @@ public class Enemy : MonoBehaviour
     {
         if (!isDead)
         {
-            // if enemy hasn't seen player, now they see them once they are hit
-            stateMachine.SetTarget(player.transform);
-            stateMachine.SetState(EnemyState.TargetVisible);
-
-            int damage = (player.gun.power - this.defense);
-            if (damage > 0)
+            // if shield is enabled
+            if(isShielded)
             {
-                this.health -= damage;
-                Debug.Log(player.userName + " has dealt " + damage + " damage to " + enemyName);
-
-                // show message in console for 3 seconds
-                HUDConsole._instance.Log(player.userName + " has dealt " + damage + " damage to " + enemyName, 3f);
-
-                // take damage animation
-                //animator.SetTrigger("tookDamage");
+                // display force field
             }
-
-
-            if (health <= 0)
+            // if not shielded
+            else
             {
-                Die();
+                // if enemy hasn't seen player, now they see them once they are hit
+                stateMachine.SetTarget(player.transform);
+                stateMachine.SetState(EnemyState.TargetVisible);
 
-                numberOfLives--;
+                int damage = (player.gun.power - this.defense);
+                if (damage > 0)
+                {
+                    this.health -= damage;
+                    Debug.Log(player.userName + " has dealt " + damage + " damage to " + enemyName);
 
-                if (RanOutOfLives())
-                {
-                    // add to bosses defeated, with its corresponding scene
-                    player.bossesDefeatedNames.Add(gameObject.name);
-                    player.bossesDefeatedScenes.Add(SceneManager.GetActiveScene().name);
-                }
-                else
-                {
-                    StartCoroutine(ReviveCoolDown());
+                    // show message in console for 3 seconds
+                    HUDConsole._instance.Log(player.userName + " has dealt " + damage + " damage to " + enemyName, 3f);
+
+                    // take damage animation
+                    //animator.SetTrigger("tookDamage");
                 }
 
-                // increase player score
-                player.playerScore += value;
+
+                if (health <= 0)
+                {
+                    Die();
+
+                    numberOfLives--;
+
+                    if (RanOutOfLives())
+                    {
+                        // add to bosses defeated, with its corresponding scene
+                        player.bossesDefeatedNames.Add(gameObject.name);
+                        player.bossesDefeatedScenes.Add(SceneManager.GetActiveScene().name);
+                    }
+                    else
+                    {
+                        StartCoroutine(ReviveCoolDown());
+                    }
+
+                    // increase player score
+                    player.playerScore += value;
+                }
             }
+            
         }
     }
 
@@ -199,6 +211,15 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
+        if(stateMachine.GetState() == EnemyState.Reviving)
+        {
+            isShielded = true;
+        }
+        else 
+        { 
+            isShielded = false; 
+        }
+
         RanOutOfLives();
     }
 }

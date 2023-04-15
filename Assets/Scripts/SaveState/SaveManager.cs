@@ -29,11 +29,6 @@ public class SaveManager : MonoBehaviour
         this.sceneData = new SceneData();
         this.gameStatisticsData = new GameStatisticsData();
 
-        if (Application.isEditor) {
-            // if in Edit mode, save game so everything doesn't go all over the place
-            SaveGame();
-        }
-
         // if coming from load game button or entering a door way
         if (!CreateNewGame.pressedCreateGame && !MenuControls.pressedRestartLevel)
         {
@@ -44,6 +39,11 @@ public class SaveManager : MonoBehaviour
             {
                 StartCoroutine(LoadScene());
                 MenuControls.pressedLoadGame = false;
+            }
+            else if(Application.isEditor)
+            {
+                // if in Edit mode, save game so everything doesn't go all over the place
+                SaveGame();
             }
             if (DoorPortal.enteredDoorPortal)
             {
@@ -80,7 +80,11 @@ public class SaveManager : MonoBehaviour
         SaveGameStatistics();
         SaveScene();
 
-        HUDConsole._instance.Log("Saved Game successfully.",2f);
+        if(HUDConsole._instance != null)
+        {
+            HUDConsole._instance.Log("Saved Game successfully.", 2f);
+        }
+        
     }
 
     /*
@@ -107,6 +111,8 @@ public class SaveManager : MonoBehaviour
         if (!DoorPortal.enteredDoorPortal)
         {
             this.playerData.playerPosition = this.player.transform.position;
+            this.playerData.playerRotation = this.player.transform.rotation;
+            this.playerData.playerScale = this.player.transform.localScale;
         }
         
 
@@ -132,7 +138,10 @@ public class SaveManager : MonoBehaviour
 
             if (!DoorPortal.enteredDoorPortal)
             {
+                Debug.Log("Loaded Player position");
                 this.player.transform.position = playerData.playerPosition;
+                this.player.transform.rotation = playerData.playerRotation;
+                this.player.transform.localScale = playerData.playerScale;
             }
         }
     }

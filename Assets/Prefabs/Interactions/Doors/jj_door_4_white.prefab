@@ -121,7 +121,7 @@ MonoBehaviour:
   isOpen: 0
   hint: {fileID: 0}
   doorAnimator: {fileID: 4047977095336313462}
-  isOneWay: 1
+  isOneWay: 0
 --- !u!95 &4047977095336313462
 Animator:
   serializedVersion: 5

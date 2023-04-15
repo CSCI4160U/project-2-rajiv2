@@ -36,6 +36,7 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioSource getHurtSoundEffect;
     [SerializeField] private AudioSource takeMeleeDamageSoundEffect;
     [SerializeField] private AudioSource getShotSoundEffect;
+    [SerializeField] private GameObject gunHold;
 
     public void Awake()
     {
@@ -151,7 +152,6 @@ public class Player : MonoBehaviour
 
     private void UpdateGunInfo()
     {
-        GameObject gunHold = this.GetComponentInChildren<Camera>().GetComponentInChildren<Transform>().gameObject;
         if (gunHold != null)
         {
             if (gunHold.transform.childCount > 0)

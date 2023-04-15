@@ -8,13 +8,13 @@ public class SettingsControls : MonoBehaviour
     private string savePath;
     public static SettingsControls _instance;
     public SettingsData settingsData = null;
+    [SerializeField] private MusicStorage backgroundMusicStorage = null;
 
     private void Awake()
     {
-        GameObject bm = GameObject.Find("BackgroundMusic");
-        if (bm != null)
+        if (backgroundMusicStorage != null)
         {
-            backgroundMusic = bm.GetComponent<AudioSource>();
+            backgroundMusic = backgroundMusicStorage.audioSource;
         }
 
         _instance = this;

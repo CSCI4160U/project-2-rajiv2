@@ -25,6 +25,10 @@ public class UIControls : MonoBehaviour
             }
             ShowDeathScreen();
         }
+        else
+        {
+            Debug.Log("Error: Player cannot be null (UI Controls script)");
+        }
     }
 
     public void ClosePauseMenu()
@@ -35,6 +39,9 @@ public class UIControls : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             pauseMenuIsShown = false;
             pauseMenu.GetComponent<Canvas>().enabled = pauseMenuIsShown;
+
+            // TODO: Resume all In-Game Activity
+            Globals.ResumeAllMovementInGame();
         }
     }
 
@@ -54,16 +61,16 @@ public class UIControls : MonoBehaviour
                 
                 Cursor.lockState = CursorLockMode.Locked;
 
-                // TODO: Pause all In-Game Activity
-                FirstPersonController._instance.enabled = true;
+                // TODO: Resume all In-Game Activity
+                Globals.ResumeAllMovementInGame();
             }
             else
             {
                 pauseMenuIsShown = true;
                 Cursor.lockState = CursorLockMode.None;
 
-                // TODO: Unpause all In-Game Activity
-                FirstPersonController._instance.enabled = false;
+                // TODO: Pause all In-Game Activity
+                Globals.PauseAllMovementInGame();
             }
         }
 

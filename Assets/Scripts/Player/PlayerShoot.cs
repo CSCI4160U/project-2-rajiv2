@@ -13,6 +13,13 @@ public class PlayerShoot : MonoBehaviour
     private Player player = null;
     private ParticleSystem muzzleFlash;
 
+    public static PlayerShoot _instance;
+
+    private void Awake()
+    {
+        _instance = this;
+    }
+
     private void Start()
     {
         player = GetComponent<Player>();
@@ -30,6 +37,8 @@ public class PlayerShoot : MonoBehaviour
         muzzleFlash = player.gun.GetComponentInChildren<ParticleSystem>().GetComponentInChildren<ParticleSystem>();
 
         RaycastHit hit;
+
+        // if player hits an enemy
         if (Physics.Raycast(mainCamera.position, mainCamera.forward, out hit, player.gun.range, enemyLayers))
         {
             Enemy shotEnemy = hit.collider.GetComponent<Enemy>();
@@ -48,36 +57,44 @@ public class PlayerShoot : MonoBehaviour
             Debug.Log("Shot the following enemy: " + hit.collider.name);
             
         }
-        else if (Physics.Raycast(mainCamera.position, mainCamera.forward, out hit, player.gun.range, wallLayers))
+        // if an obstacle prevents player from hitting enemy
+        else
         {
-
-            // TODO: Make last parameter of Instantiate random so bullet hole looks random every time
-            Instantiate(bulletHolePrefab, hit.point + (0.01f * hit.normal), Quaternion.LookRotation(-1 * hit.normal,hit.transform.up));
-            Debug.Log("Shot the following object: " + hit.collider.name);
-        }
-        else if (Physics.Raycast(mainCamera.position, mainCamera.forward, out hit, player.gun.range, interactiveLayers))
-        {
-            RotatingPlatform rotatingPlatform = hit.collider.GetComponent<RotatingPlatform>();
-            MovingPlatform movingPlatform = hit.collider.GetComponent<MovingPlatform>();
-            //PatternBlock patternBlock = hit.collider.GetComponent<PatternBlock>();
-            // if is a pattern block (pattern game)
-            // change interactive color
-            // set it active in the array of interactives
-            // if is moving platform
-            if (movingPlatform != null)
+            // if player shoots a wall
+            if (Physics.Raycast(mainCamera.position, mainCamera.forward, out hit, player.gun.range, wallLayers))
             {
-                // activate Coroutine to stop movement / fully stop
-                StartCoroutine(movingPlatform.PauseMovement());
-            }
-            // if is rotating platform
-            else if (rotatingPlatform != null)
-            {
-                // activate Coroutine to stop movement / fully stop
-                StartCoroutine(rotatingPlatform.PauseMovement());
-            }
 
-            Debug.Log("Shot the following interactive object: " + hit.collider.name);
+                // TODO: Make last parameter of Instantiate random so bullet hole looks random every time
+                Instantiate(bulletHolePrefab, hit.point + (0.01f * hit.normal), Quaternion.LookRotation(-1 * hit.normal, hit.transform.up));
+                Debug.Log("Shot the following object: " + hit.collider.name);
+            }
+            // if player shoots an interactive object (moving platform, rotating platform, puzzle block, etc.)
+            else if (Physics.Raycast(mainCamera.position, mainCamera.forward, out hit, player.gun.range, interactiveLayers))
+            {
+                RotatingPlatform rotatingPlatform = hit.collider.GetComponent<RotatingPlatform>();
+                MovingPlatform movingPlatform = hit.collider.GetComponent<MovingPlatform>();
+                //PatternBlock patternBlock = hit.collider.GetComponent<PatternBlock>();
+                // if is a pattern block (pattern game)
+                // change interactive color
+                // set it active in the array of interactives
+
+                // if is moving platform
+                if (movingPlatform != null)
+                {
+                    // activate Coroutine to stop movement / fully stop
+                    StartCoroutine(movingPlatform.PauseMovement());
+                }
+                // if is rotating platform
+                else if (rotatingPlatform != null)
+                {
+                    // activate Coroutine to stop movement / fully stop
+                    StartCoroutine(rotatingPlatform.PauseMovement());
+                }
+
+                Debug.Log("Shot the following interactive object: " + hit.collider.name);
+            }
         }
+        
 
         gunAnimator.SetTrigger("Fire");
 

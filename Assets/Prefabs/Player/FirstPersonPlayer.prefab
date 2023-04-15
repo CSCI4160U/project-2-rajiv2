@@ -274,7 +274,7 @@ MonoBehaviour:
   canAirControl: 1
   jumpSpeed: 10
   mouseSensitivity: 125
-  firstPersonCamera: {fileID: 0}
+  firstPersonCamera: {fileID: 9162354029960090135}
   cameraCrouchY: 0
   crouchControllerHeight: 0
   crouchControllerCenterY: 0
@@ -304,6 +304,7 @@ MonoBehaviour:
   getHurtSoundEffect: {fileID: 0}
   takeMeleeDamageSoundEffect: {fileID: 625321251195556043}
   getShotSoundEffect: {fileID: 0}
+  gunHold: {fileID: 3714539857489678463}
 --- !u!114 &4698253816950656395
 MonoBehaviour:
   m_ObjectHideFlags: 0

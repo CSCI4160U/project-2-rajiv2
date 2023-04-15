@@ -25,9 +25,9 @@ public class RotatingPlatform : MonoBehaviour
 
     public IEnumerator PauseMovement()
     {
-        movementIsPaused = true;
+        SetMovementPaused(true);
         yield return new WaitForSeconds(pauseTime);
-        movementIsPaused = false;
+        SetMovementPaused(false);
     }
 
     public void SetMovementPaused(bool isPaused)
