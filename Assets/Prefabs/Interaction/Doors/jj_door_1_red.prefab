@@ -110,8 +110,8 @@ GameObject:
   - component: {fileID: 3283862382803735396}
   - component: {fileID: 3294311060890618200}
   - component: {fileID: 8098061108884197839}
-  - component: {fileID: 7437345653947628708}
   - component: {fileID: 5553672344005624010}
+  - component: {fileID: 6975609268173207490}
   m_Layer: 8
   m_Name: jj_door_1_red
   m_TagString: Untagged
@@ -205,19 +205,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
---- !u!65 &7437345653947628708
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3305999299402640048}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.135885, y: 2.0849233, z: 0.3551738}
-  m_Center: {x: 0.0012555787, y: -0.0024617463, z: 0.33418608}
 --- !u!114 &5553672344005624010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,15 +218,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destination: 
-  player: {fileID: 0}
   playerTransformInDestination: {fileID: 0}
   playerTransformInCurrentScene: {fileID: 0}
   scoreRequired: 0
   requiredDistance: 5
   isPortal: 0
+  isOpen: 0
   hint: {fileID: 0}
   doorAnimator: {fileID: 8098061108884197839}
   isOneWay: 0
+--- !u!65 &6975609268173207490
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3305999299402640048}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.250486, y: 2.0849233, z: 1.2764206}
+  m_Center: {x: 0.010946683, y: -0.0024617463, z: -0.010024233}
 --- !u!1 &3306474173189073420
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,10 +8,14 @@ public class SaveManager : MonoBehaviour
     public SceneData sceneData = null;
     public GameStatisticsData gameStatisticsData = null;
     public Player player = null;
+    public static SaveManager _instance;
     private string savePath;
 
     private void Awake()
     {
+
+        _instance = this;
+
         // set player userName
         this.player.userName = CreateNewGame.newUserName;
     }

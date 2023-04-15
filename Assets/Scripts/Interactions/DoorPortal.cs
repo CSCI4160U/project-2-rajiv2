@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 public class DoorPortal : MonoBehaviour
 {
     [SerializeField] private string destination;
-    [SerializeField] private Player player = null;
 
     // stores position of player when exiting doorway
     [SerializeField] private PlayerTransform playerTransformInDestination;
@@ -24,16 +23,26 @@ public class DoorPortal : MonoBehaviour
     
     private bool canStillOpen = true;
 
+    private Player player = null;
+
     private void Update()
     {
+        player = FirstPersonController._instance.GetComponent<Player>();
         ShowHint();
     }
 
-    public void ToggleDoorOpening()
+    public void SetDoorOpen(bool state)
     {
-        if (doorAnimator != null && canStillOpen)
+        if (doorAnimator != null)
         {
-            isOpen = !isOpen;
+            isOpen = state;
+            Vector3 doorTransformDirection = transform.TransformDirection(Vector3.forward);
+            Vector3 playerTransformDirection = player.transform.position - transform.position;
+            float dot = Vector3.Dot(doorTransformDirection, playerTransformDirection);
+
+            // direction doot swings
+            doorAnimator.SetFloat("dot", dot);
+
             doorAnimator.SetBool("isOpen", isOpen);
         }
     }
@@ -42,21 +51,41 @@ public class DoorPortal : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            ToggleDoorOpening();
+            if (canStillOpen && !isOpen)
+            {
+                SetDoorOpen(true);
+            }
+            
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player") && isOneWay)
+        if (other.CompareTag("Player"))
         {
-            ToggleDoorOpening();
-            canStillOpen = false;
-
-            if(isPortal && PlayerHasReachedGoal())
+            // if door is open
+            if (isOpen)
             {
-                GoThroughDoorPortal();
+                // if door is a one way, can't open it again
+                if (isOneWay && canStillOpen)
+                {
+                    canStillOpen = false;
+                    SetDoorOpen(false);
+                }
+                else
+                {
+                    // if is a normal door, close after player exits collider
+                    SetDoorOpen(false);
+                }
+
+                // after going through door, go through portal
+                if (isPortal && PlayerHasReachedGoal())
+                {
+                    GoThroughDoorPortal();
+                }
             }
+
+            
             
         }
     }
@@ -78,7 +107,7 @@ public class DoorPortal : MonoBehaviour
         SceneManager.LoadScene(destination);
 
         enteredDoorPortal = true;
-        player.GetComponent<SaveManager>().SaveGame();
+        SaveManager._instance.SaveGame();
     }
 
     private void ShowHint()
@@ -115,6 +144,7 @@ public class DoorPortal : MonoBehaviour
      */
     private bool PlayerHasReachedGoal()
     {
+
         if (player != null)
         {
 

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2909295705933141873}
   - component: {fileID: 7559599153707790380}
   - component: {fileID: 5471798539750897475}
+  - component: {fileID: 4047977095336313462}
   m_Layer: 8
   m_Name: jj_door_4_white
   m_TagString: Untagged
@@ -97,8 +98,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.135885, y: 2.0849233, z: 0.3551738}
-  m_Center: {x: 0.0012555787, y: -0.0024617463, z: 0.33418608}
+  m_Size: {x: 1.250486, y: 2.0849233, z: 1.2764206}
+  m_Center: {x: 0.010946683, y: -0.0024617463, z: -0.010024233}
 --- !u!114 &5471798539750897475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,16 +113,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destination: 
-  player: {fileID: 0}
   playerTransformInDestination: {fileID: 0}
   playerTransformInCurrentScene: {fileID: 0}
   scoreRequired: 0
   requiredDistance: 5
-  isPortal: 1
+  isPortal: 0
   isOpen: 0
   hint: {fileID: 0}
-  doorAnimator: {fileID: 0}
+  doorAnimator: {fileID: 4047977095336313462}
   isOneWay: 1
+--- !u!95 &4047977095336313462
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2886435500785664499}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ba477963c587988469017d1a525f1402, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &2886463447357221223
 GameObject:
   m_ObjectHideFlags: 0
@@ -133,6 +153,7 @@ GameObject:
   - component: {fileID: 2890372297987172889}
   - component: {fileID: 2915265683345188371}
   - component: {fileID: 2907556884918385885}
+  - component: {fileID: 7223160949377896217}
   m_Layer: 8
   m_Name: doorWing
   m_TagString: Untagged
@@ -206,6 +227,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &7223160949377896217
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2886463447357221223}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.91890264, y: 1.9499999, z: 0.040926464}
+  m_Center: {x: -0.44891596, y: 0.97499806, z: -0.011339351}
 --- !u!1 &2886499937707689091
 GameObject:
   m_ObjectHideFlags: 0

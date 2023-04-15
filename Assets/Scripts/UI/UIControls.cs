@@ -55,7 +55,7 @@ public class UIControls : MonoBehaviour
                 Cursor.lockState = CursorLockMode.Locked;
 
                 // TODO: Pause all In-Game Activity
-                player.GetComponent<FirstPersonMovement>().enabled = true;
+                FirstPersonController._instance.enabled = true;
             }
             else
             {
@@ -63,7 +63,7 @@ public class UIControls : MonoBehaviour
                 Cursor.lockState = CursorLockMode.None;
 
                 // TODO: Unpause all In-Game Activity
-                player.GetComponent<FirstPersonMovement>().enabled = false;
+                FirstPersonController._instance.enabled = false;
             }
         }
 
