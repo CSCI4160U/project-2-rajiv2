@@ -6,10 +6,12 @@ public class MovingPlatform : MonoBehaviour
     [SerializeField] private Transform startPoint = null;
     [SerializeField] private Transform endPoint = null;
     [SerializeField] private float speed = 3f;
+    [SerializeField] private Vector3 axis = new Vector3(1.0f, 0f, 0f);
     [SerializeField] private bool isMovingUpAndDown = false;
     [SerializeField] private float pauseTime = 5f;
     private bool movingUp = false;
-    private bool movingForward = false;
+    private bool movingForwardX = false;
+    private bool movingForwardZ = false;
     private Vector3 velocity;
     private bool movementIsPaused = false;
 
@@ -57,28 +59,59 @@ public class MovingPlatform : MonoBehaviour
 
     private void MoveForwardAndBackward()
     {
+        // if moving in x direction
+        if (axis.x > 0)
+        {
+            if (transform.localPosition.x >= startPoint.localPosition.x)
+            {
+                movingForwardX = false;
+            }
+            if (transform.localPosition.x <= endPoint.localPosition.x)
+            {
+                movingForwardX = true;
+            }
 
-        if (transform.localPosition.z >= startPoint.localPosition.z)
-        {
-            movingForward = false;
+            if (movingForwardX)
+            {
+                // go forward
+                velocity = (Vector3.right * speed);
+                transform.Translate(velocity * Time.deltaTime);
+            }
+            else
+            {
+                // go backward
+                velocity = (Vector3.left * speed);
+                transform.Translate(velocity * Time.deltaTime);
+            }
         }
-        if (transform.localPosition.z <= endPoint.localPosition.z)
-        {
-            movingForward = true;
-        }
+        
 
-        if (movingForward)
+        // if moving in z direction
+        if (axis.z > 0)
         {
-            // go forward
-            velocity = (Vector3.forward * speed);
-            transform.Translate(velocity * Time.deltaTime);
+            if (transform.localPosition.z >= startPoint.localPosition.z)
+            {
+                movingForwardZ = false;
+            }
+            if (transform.localPosition.z <= endPoint.localPosition.z)
+            {
+                movingForwardZ = true;
+            }
+
+            if (movingForwardZ)
+            {
+                // go forward
+                velocity = (Vector3.forward * speed);
+                transform.Translate(velocity * Time.deltaTime);
+            }
+            else
+            {
+                // go backward
+                velocity = (Vector3.back * speed);
+                transform.Translate(velocity * Time.deltaTime);
+            }
         }
-        else
-        {
-            // go backward
-            velocity = -1 * (Vector3.forward * speed);
-            transform.Translate(velocity * Time.deltaTime);
-        }
+        
     }
 
     private void OnTriggerEnter(Collider other)

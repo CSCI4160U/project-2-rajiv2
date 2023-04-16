@@ -20,7 +20,8 @@ public class RotatingPlatform : MonoBehaviour
 
     private void Rotate()
     {
-        transform.Rotate(axis, speed * Time.deltaTime);
+        //speed * Time.deltaTime
+        transform.Rotate(axis * speed * Time.deltaTime, Space.Self);
     }
 
     public IEnumerator PauseMovement()

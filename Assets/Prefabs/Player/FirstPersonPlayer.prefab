@@ -273,7 +273,7 @@ MonoBehaviour:
     m_Bits: 8
   canAirControl: 1
   jumpSpeed: 10
-  mouseSensitivity: 125
+  mouseSensitivity: 100
   firstPersonCamera: {fileID: 9162354029960090135}
   cameraCrouchY: 0
   crouchControllerHeight: 0

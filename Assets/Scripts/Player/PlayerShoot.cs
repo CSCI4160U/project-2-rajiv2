@@ -69,11 +69,11 @@ public class PlayerShoot : MonoBehaviour
                 Debug.Log("Shot the following object: " + hit.collider.name);
             }
             // if player shoots an interactive object (moving platform, rotating platform, puzzle block, etc.)
-            else if (Physics.Raycast(mainCamera.position, mainCamera.forward, out hit, player.gun.range, interactiveLayers))
+            if (Physics.Raycast(mainCamera.position, mainCamera.forward, out hit, player.gun.range, interactiveLayers))
             {
                 RotatingPlatform rotatingPlatform = hit.collider.GetComponent<RotatingPlatform>();
                 MovingPlatform movingPlatform = hit.collider.GetComponent<MovingPlatform>();
-                //PatternBlock patternBlock = hit.collider.GetComponent<PatternBlock>();
+                PatternBlock patternBlock = hit.collider.GetComponent<PatternBlock>();
                 // if is a pattern block (pattern game)
                 // change interactive color
                 // set it active in the array of interactives
@@ -89,6 +89,13 @@ public class PlayerShoot : MonoBehaviour
                 {
                     // activate Coroutine to stop movement / fully stop
                     StartCoroutine(rotatingPlatform.PauseMovement());
+                }
+                // if is patern block
+                else if (patternBlock != null)
+                {
+                    // start coroutine to set active then go back to default
+                    StartCoroutine(patternBlock.FlashBlockActive());
+                    patternBlock.wasActivated = true;
                 }
 
                 Debug.Log("Shot the following interactive object: " + hit.collider.name);
