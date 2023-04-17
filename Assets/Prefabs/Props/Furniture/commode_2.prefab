@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6492614145147833165}
   - component: {fileID: 6492614145144441709}
   - component: {fileID: 6492614145145538989}
+  - component: {fileID: -3322896760274276979}
   m_Layer: 0
   m_Name: commode_2
   m_TagString: Untagged
@@ -83,3 +84,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &-3322896760274276979
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6492614145147475821}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 57ef7eea2ef8b0f46bd6a74efaf7d64b, type: 3}

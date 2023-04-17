@@ -7,16 +7,14 @@ using System.Threading.Tasks;
 public class PatternGrid : MonoBehaviour
 {
     public bool isActive = false;
+    public bool startWithFullPattern = false;
     private PatternBlock[,] patternBlocks;
     private int n;
 
-    private int inputIndex;
     private int displayIndex;
 
     private List<PatternBlock> displayBlocks;
-
-    private List<int> randomList;
-    private System.Random rand;
+    //private System.Random rand;
 
     private bool showPattern;
     private bool userCanGuess;
@@ -28,30 +26,48 @@ public class PatternGrid : MonoBehaviour
 
     private void Start()
     {
+        
         userCanGuess = false;
         showPattern = true;
-        displayIndex = 1;
+        
         n = transform.childCount;
+
+        // all blocks according to each row
         patternBlocks = new PatternBlock[n, n];
+
+        // queue of blocks being displayed in order of sequence number
         displayBlocks = new List<PatternBlock>();
-        randomList = new List<int>();
-        rand = new System.Random();
+
+        if (startWithFullPattern)
+        {
+            displayIndex = n;
+        }
+        else
+        {
+            displayIndex = 1;
+        }
+        
 
         GenerateRandomSequence();
 
+        GetPatternBlocksInOrder();
+    }
+
+    private void GetPatternBlocksInOrder()
+    {
+        // for each sequence number
         for (int s = 0; s < n * n; s++)
         {
-            // Adding to the display queue
+            // for each pattern block
             for (int i = 0; i < n; i++)
             {
                 for (int j = 0; j < n; j++)
                 {
-
                     if (patternBlocks[i, j].sequenceNumber == s)
                     {
+                        // Add to the display queue
                         displayBlocks.Add(patternBlocks[i, j]);
-                        Debug.Log("BLOCK: " + patternBlocks[i, j].name + " {ROW " + i + "} {SEQ = "+ patternBlocks[i, j].sequenceNumber + "}");
-                        
+
                     }
                 }
             }
@@ -60,6 +76,8 @@ public class PatternGrid : MonoBehaviour
 
     private void GenerateRandomSequence()
     {
+        List<int> randomList = new List<int>();
+        System.Random rand = new System.Random();
         int sequenceNumber = rand.Next(0, n * n);
         int randomIndex = 0;
 

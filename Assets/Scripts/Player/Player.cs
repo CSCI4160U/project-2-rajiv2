@@ -74,14 +74,14 @@ public class Player : MonoBehaviour
 
     public void TakeGunDamage(Enemy enemy)
     {
-        int damage = (enemy.shootingDamage - this.currentDefense);
+        int damage = (enemy.gun.power - this.currentDefense);
 
         if (damage > 0)
         {
             health -= damage;
 
             // enemy attack animation
-            enemy.GetComponent<Animator>().SetTrigger("attacked");
+            //enemy.GetComponent<Animator>().SetTrigger("attacked");
 
             Debug.Log(enemy.enemyName + " has shot " + userName);
 

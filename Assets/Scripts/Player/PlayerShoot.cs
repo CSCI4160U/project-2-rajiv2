@@ -9,9 +9,9 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] private LayerMask enemyLayers;
     [SerializeField] private GameObject bulletHolePrefab;
     private Animator gunAnimator = null;
+    private ParticleSystem muzzleFlash;
     private Animator enemyAnimator = null;
     private Player player = null;
-    private ParticleSystem muzzleFlash;
 
     public static PlayerShoot _instance;
 

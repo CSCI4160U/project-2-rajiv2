@@ -9,32 +9,45 @@ public enum EnemyState
 [RequireComponent(typeof(Enemy))]
 public class EnemyAIStateMachine : MonoBehaviour
 {
-    [SerializeField]
-    private EnemyState currentState = EnemyState.Patrolling;
+    [SerializeField] private EnemyState currentState = EnemyState.Patrolling;
+
     [Header("Patrolling")]
     [SerializeField] private Transform[] waypoints;
     [SerializeField] private int waypointIndex = 0;
     [SerializeField] private bool patrolLoop = true;
     [SerializeField] private float closeEnoughDistance;
+
     [Header("Alerted")]
     [SerializeField] private float lastAlertTime = 0.0f;
     [SerializeField] private float alertCooldown = 8.0f;
     [SerializeField] private Vector3 lastKnownTargetPosition;
     [SerializeField] private float alertDistance;
+
     [Header("Target in Sight")]
     [SerializeField] private float lastShootTime = 0.0f;
     [SerializeField] private float shootCooldown = 1.0f;
     [SerializeField] private Transform target = null;
     [SerializeField]  private Animator animator = null;
     [SerializeField] private Transform[] consolePositions = null;
-    [Header("Attacking")]
+
+    [Header("Brawling")]
     [SerializeField] private int numAttackAnimations = 5;
     [SerializeField] private float attackDistance;
     [SerializeField] private float killCoolDownTime = 2;
+
+    [Header("Shooting")]
+    [SerializeField] private Transform eye;
+    [SerializeField] private LayerMask playerLayers;
+    [SerializeField] private LayerMask wallLayers;
+    [SerializeField] private GameObject bulletHolePrefab;
+    private Animator gunAnimator = null;
+    private ParticleSystem muzzleFlash;
+
     [Header("During Emergencies")]
     [SerializeField] private float useDistance;
     [SerializeField] private float runSpeed;
     [SerializeField] private AlarmSystem alarmSystem;
+
     [Header("Reviving")]
     [SerializeField] private float reviveCoolDownTime = 10;
 
@@ -119,22 +132,29 @@ public class EnemyAIStateMachine : MonoBehaviour
         }
         else if (newState == EnemyState.Alerted)
         {
-            // investigate the last known position
+            
+            if (enemy.isShooter)
+            {
+                // investigate the last known position
 
-            //agent.enabled = true;
-            //agent.SetDestination(lastKnownTargetPosition);
+                agent.enabled = true;
+
+                agent.SetDestination(lastKnownTargetPosition);
+            }
+
             // remember when we were alerted
             lastAlertTime = Time.time;
         }
         else if (newState == EnemyState.TargetVisible)
         {
 
-            // shoot at the player
-            //agent.enabled = false;
+            
             if (enemy.isShooter)
             {
+                agent.enabled = false;
                 animator.SetFloat("Forward", 0.0f);
             }
+
             animator.ResetTrigger("tookDamage");
             lastKnownTargetPosition = target.transform.position;
         }
@@ -375,17 +395,54 @@ public class EnemyAIStateMachine : MonoBehaviour
     }
     private void Shoot()
     {
-        if (Time.time > (lastShootTime + shootCooldown))
+        if (Time.time > (lastShootTime + shootCooldown) && enemy.HasGun())
         {
-            Vector3 targetDirection = (target.transform.position -
-            transform.position).normalized;
-            Quaternion targetRotation =
-            Quaternion.LookRotation(targetDirection);
-            transform.rotation = Quaternion.Slerp(transform.rotation,
-            targetRotation, 0.15f);
+            Vector3 targetDirection = (target.transform.position - eye.position).normalized;
+            Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+            transform.rotation = Quaternion.Slerp(eye.rotation, targetRotation, 0.5f);
             lastShootTime = Time.time;
+
+            gunAnimator = enemy.gun.GetComponentInChildren<Animator>();
+            muzzleFlash = enemy.gun.GetComponentInChildren<ParticleSystem>().GetComponentInChildren<ParticleSystem>();
+
+            enemy.gun.shotSoundEffect.Play();
+
             animator.SetTrigger("Shoot");
+            gunAnimator.SetTrigger("Fire");
+            if (muzzleFlash != null)
+            {
+                muzzleFlash.Play();
+            }
+
             // TODO: Do raycast to calculate damage
+            RaycastHit hit;
+
+            // if player hits an enemy
+            if (Physics.Raycast(eye.position, eye.forward, out hit, enemy.gun.range, playerLayers))
+            {
+                Player shotPlayer = hit.collider.GetComponent<Player>();
+                if (shotPlayer != null)
+                {
+                    shotPlayer.TakeGunDamage(enemy);
+                }
+
+                if (shotPlayer.isDead)
+                {
+                    ResetWayPoint();
+                    SetState(EnemyState.Alerted);
+                }
+
+                Debug.Log("Shot the following player: " + hit.collider.name);
+
+            }
+            // if enemy shoots a wall
+            else if (Physics.Raycast(eye.position, eye.forward, out hit, enemy.gun.range, wallLayers))
+            {
+
+                // TODO: Make last parameter of Instantiate random so bullet hole looks random every time
+                Instantiate(bulletHolePrefab, hit.point + (0.01f * hit.normal), Quaternion.LookRotation(-1 * hit.normal, hit.transform.up));
+                Debug.Log("Shot the following object: " + hit.collider.name);
+            }
         }
 
     }

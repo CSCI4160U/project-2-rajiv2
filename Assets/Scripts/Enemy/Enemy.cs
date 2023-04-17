@@ -7,7 +7,6 @@ public class Enemy : MonoBehaviour
 {
     public string enemyName;
     public int attack;
-    public int shootingDamage;
     public int defense;
     public int maxHealth = 50;
     public int health;
@@ -18,6 +17,8 @@ public class Enemy : MonoBehaviour
     public int value;
     public bool isShooter;
     public bool isBrawler;
+
+    public Gun gun;
     
     [SerializeField] private Animator animator;
     private EnemyAIStateMachine stateMachine;
@@ -28,6 +29,12 @@ public class Enemy : MonoBehaviour
         stateMachine = GetComponent<EnemyAIStateMachine>();
         ResetEnemy();
     }
+
+    public bool HasGun()
+    {
+        return gun != null;
+    }
+
 
     /*
      * Function takes away health of enemy based on its

@@ -76,22 +76,34 @@ public class FieldOfView : MonoBehaviour
             targetPos.y += 1.0f;
             Vector3 targetDirection = (targetPos - eye.transform.position).normalized;
 
+            
+
             // 2. is the object within fov?
             if (Vector3.Angle(eye.transform.forward, targetDirection) < fovAngle / 2)
             {
                 // 3. do we have line of sight?
                 float distance = Vector3.Distance(eye.transform.position,targetPos);
-                
-                if (!Physics.Raycast(eye.transform.position, targetDirection,
+
+                RaycastHit hit;
+
+                if (!Physics.Raycast(eye.transform.position, targetDirection, out hit,
                 distance, wallLayer) && !isOverlappingWall)
                 {
-                    canSeeTarget = true;
-                    isAlerted = true;
-                    // change to target visible state
-                    stateMachine.SetTarget(targets[i].transform);
-                    stateMachine.SetState(EnemyState.TargetVisible);
+                    Player seenPlayer = hit.collider.GetComponent<Player>();
+                    if (seenPlayer != null)
+                    {
+                        // if player seen isn't dead
+                        if (!seenPlayer.isDead)
+                        {
+                            canSeeTarget = true;
+                            isAlerted = true;
+                            // change to target visible state
+                            stateMachine.SetTarget(targets[i].transform);
+                            stateMachine.SetState(EnemyState.TargetVisible);
 
-                    return;
+                            return;
+                        }
+                    }   
                 }
             }
         }
