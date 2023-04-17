@@ -241,7 +241,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eye: {fileID: 5587583843362513640}
   fovAngle: 180
-  visionRadius: 20
+  visionRadius: 30
   targetLayer:
     serializedVersion: 2
     m_Bits: 64

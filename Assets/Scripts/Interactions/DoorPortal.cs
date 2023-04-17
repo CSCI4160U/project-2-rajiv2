@@ -28,6 +28,7 @@ public class DoorPortal : MonoBehaviour
     private void Update()
     {
         player = FirstPersonController._instance.GetComponent<Player>();
+
         ShowHint();
     }
 

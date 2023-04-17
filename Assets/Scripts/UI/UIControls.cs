@@ -81,7 +81,13 @@ public class UIControls : MonoBehaviour
     {
         if (deathScreen != null)
         {
+            
             deathScreen.GetComponent<Canvas>().enabled = deathScreenIsShown;
+
+            if (deathScreenIsShown)
+            {
+                Cursor.lockState = CursorLockMode.None;
+            }
         }
     }
 }

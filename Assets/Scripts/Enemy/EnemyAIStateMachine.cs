@@ -199,6 +199,8 @@ public class EnemyAIStateMachine : MonoBehaviour
             // check for timeout
             if (Time.time > (lastAlertTime + alertCooldown))
             {
+                animator.ResetTrigger("Shoot");
+                ResetWayPoint();
                 SetState(EnemyState.Patrolling);
                 Patrol();
             }
@@ -428,7 +430,6 @@ public class EnemyAIStateMachine : MonoBehaviour
 
                 if (shotPlayer.isDead)
                 {
-                    ResetWayPoint();
                     SetState(EnemyState.Alerted);
                 }
 

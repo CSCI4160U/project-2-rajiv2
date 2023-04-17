@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(EnemyAIStateMachine))]
-public class FieldOfView : MonoBehaviour
+public class EnemyFieldOfView : MonoBehaviour
 {
     [Header("Vision")]
     [SerializeField] private GameObject eye;
@@ -66,8 +66,6 @@ public class FieldOfView : MonoBehaviour
         bool canSeeTarget = false;
         Collider[] targets = Physics.OverlapSphere(eye.transform.position,
         visionRadius, targetLayer);
-        
-        bool isOverlappingWall = false;
 
         for (int i = 0; i < targets.Length; i++)
         {
@@ -84,26 +82,17 @@ public class FieldOfView : MonoBehaviour
                 // 3. do we have line of sight?
                 float distance = Vector3.Distance(eye.transform.position,targetPos);
 
-                RaycastHit hit;
-
-                if (!Physics.Raycast(eye.transform.position, targetDirection, out hit,
-                distance, wallLayer) && !isOverlappingWall)
+                if (!Physics.Raycast(eye.transform.position, targetDirection,
+                distance, wallLayer))
                 {
-                    Player seenPlayer = hit.collider.GetComponent<Player>();
-                    if (seenPlayer != null)
-                    {
-                        // if player seen isn't dead
-                        if (!seenPlayer.isDead)
-                        {
-                            canSeeTarget = true;
-                            isAlerted = true;
-                            // change to target visible state
-                            stateMachine.SetTarget(targets[i].transform);
-                            stateMachine.SetState(EnemyState.TargetVisible);
+                    canSeeTarget = true;
+                    isAlerted = true;
+                    // change to target visible state
+                    stateMachine.SetTarget(targets[i].transform);
+                    stateMachine.SetState(EnemyState.TargetVisible);
 
-                            return;
-                        }
-                    }   
+                    return;
+
                 }
             }
         }
