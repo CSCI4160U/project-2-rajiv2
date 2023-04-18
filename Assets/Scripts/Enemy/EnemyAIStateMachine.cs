@@ -103,14 +103,12 @@ public class EnemyAIStateMachine : MonoBehaviour
         
         yield return new WaitForSeconds(killCoolDownTime);
 
-        ResetWayPoint();
         SetState(EnemyState.Patrolling);
+        ResetWayPoint();
     }
 
     private void ResetWayPoint()
     {
-        agent.enabled = true;
-        waypointIndex = 0;
         agent.SetDestination(waypoints[waypointIndex].position);
     }
 
@@ -200,8 +198,8 @@ public class EnemyAIStateMachine : MonoBehaviour
             if (Time.time > (lastAlertTime + alertCooldown))
             {
                 animator.ResetTrigger("Shoot");
-                ResetWayPoint();
                 SetState(EnemyState.Patrolling);
+                ResetWayPoint();
                 Patrol();
             }
             else

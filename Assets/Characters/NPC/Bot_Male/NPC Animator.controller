@@ -152,7 +152,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Right Side Kick
+  m_Name: Talking So What Had Happened Was
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -166,7 +166,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: abfc440d980ee464da8df81455ccfaeb,
+  m_Motion: {fileID: -203655887218126122, guid: 64004206d01b826408eff14b414db43c,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
@@ -211,7 +211,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Right Hook
+  m_Name: Talking Is What Im Saying
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -225,7 +225,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: 2caf3dea2de76054083d6fae52390307,
+  m_Motion: {fileID: -203655887218126122, guid: f14f0b28ad3b81b40a9bb2b2266b61b0,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
@@ -311,7 +311,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Left Side Kick
+  m_Name: Talking Sassy
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -325,7 +325,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: fe27273325c20b24a8f0ddc8445239ec,
+  m_Motion: {fileID: -203655887218126122, guid: 700a8a8d032b4304daa41cc2de8061d4,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
@@ -368,7 +368,7 @@ AnimatorController:
   m_AnimatorParameters:
   - m_Name: Forward
     m_Type: 1
-    m_DefaultFloat: 0
+    m_DefaultFloat: 1
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
@@ -529,7 +529,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Right Punch
+  m_Name: Talking Putting 2 and 2 Together
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -543,7 +543,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: aeb5de0af1c5840458584a150892f427,
+  m_Motion: {fileID: -203655887218126122, guid: 92c7cb6e02c85624689579670eb72a7d,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
@@ -912,7 +912,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Left Jab
+  m_Name: Talking I Couldnt Tell Ya
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -926,7 +926,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: 9c752bdf6bee3f542bb007d846824c84,
+  m_Motion: {fileID: -203655887218126122, guid: 9d76cd417f54de24687f555ea3dada93,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 

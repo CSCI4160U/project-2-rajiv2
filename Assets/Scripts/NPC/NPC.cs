@@ -13,8 +13,8 @@ public class NPC : MonoBehaviour
     public bool isDead = false;
     public bool isShielded;
     public int value;
-    public bool isChatter;
-    public bool isWalker;
+    public bool isFeelingFriendly = true;
+    public float isFeelingFriendlyCoolDown = 20f;
 
     [SerializeField] private Animator animator;
     private NPCAIStateMachine stateMachine;
@@ -97,13 +97,33 @@ public class NPC : MonoBehaviour
         }
     }
 
+    public void GetChatRequest(NPC npc)
+    {
+        if (isFeelingFriendly)
+        {
+            stateMachine.SetFriend(npc.transform);
+            stateMachine.SetState(NPCState.Chatting);
+        }
+        else
+        {
+            StartCoroutine(ResetFriendliness());
+        }
+    }
+
+    public IEnumerator ResetFriendliness()
+    {
+        yield return new WaitForSeconds(isFeelingFriendlyCoolDown);
+
+        isFeelingFriendly = true;
+    }
+
     /*
      * Function does death animation disables colliders
      * and disables this component when the enemy is dead
      */
     private void Die()
     {
-        //stateMachine.SetState(NPCState.Dead);
+        stateMachine.SetState(NPCState.Dead);
         isDead = true;
 
         Debug.Log(npcName + " has died!");

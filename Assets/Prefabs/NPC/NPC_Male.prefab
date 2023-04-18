@@ -147,7 +147,7 @@ MonoBehaviour:
   - {fileID: 0}
   waypointIndex: 0
   walkingLoop: 1
-  closeEnoughDistance: 0
+  closeEnoughDistance: 5
   threat: {fileID: 0}
   animator: {fileID: 7063892953590428310}
   consolePositions: []
@@ -160,7 +160,7 @@ MonoBehaviour:
   wallLayers:
     serializedVersion: 2
     m_Bits: 776
-  farEnoughDistanceFromThreat: 0
+  farEnoughDistanceFromThreat: 100
   eye: {fileID: 4598718699996186755}
   friend: {fileID: 0}
   npcLayers:
@@ -170,8 +170,10 @@ MonoBehaviour:
   numChattingAnimations: 5
   lastChatTime: 0
   chatCoolDown: 20
+  lastIdleTime: 0
+  idleCoolDown: 5
   useDistance: 0
-  runSpeed: 0
+  runSpeed: 8
   alarmSystem: {fileID: 0}
 --- !u!114 &4984624519125292025
 MonoBehaviour:
@@ -193,8 +195,8 @@ MonoBehaviour:
   isDead: 0
   isShielded: 0
   value: 10
-  isChatter: 0
-  isWalker: 0
+  isFeelingFriendly: 1
+  isFeelingFriendlyCoolDown: 20
   animator: {fileID: 7063892953590428310}
 --- !u!114 &4984624519125292024
 MonoBehaviour:
