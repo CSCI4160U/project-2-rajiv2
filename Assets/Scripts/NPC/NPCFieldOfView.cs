@@ -12,14 +12,14 @@ public class NPCFieldOfView : MonoBehaviour
     [SerializeField] private LayerMask threatLayer;
     [SerializeField] private LayerMask npcLayer;
     [SerializeField] private LayerMask wallLayer;
-    [SerializeField] private float targetScanDelay = 0.25f;
+    [SerializeField] private float interactionScanDelay = 0.25f;
 
     private NPCAIStateMachine stateMachine;
 
     private void Start()
     {
         stateMachine = GetComponent<NPCAIStateMachine>();
-        StartCoroutine(KeepSearchingForTargets(targetScanDelay));
+        StartCoroutine(KeepSearchingForInteractions(interactionScanDelay));
     }
     public void OnDrawGizmos()
     {
@@ -47,7 +47,7 @@ public class NPCFieldOfView : MonoBehaviour
         Gizmos.DrawLine(eye.transform.position, focusPos);
     }
 
-    IEnumerator KeepSearchingForTargets(float delay)
+    IEnumerator KeepSearchingForInteractions(float delay)
     {
         while (true)
         {
@@ -63,8 +63,6 @@ public class NPCFieldOfView : MonoBehaviour
 
     private void LookForFriends()
     {
-        // 1. any objects within our vision radius
-        bool canSeeFriend = false;
         Collider[] friends = Physics.OverlapSphere(eye.transform.position,
         visionRadius, npcLayer);
 
@@ -74,30 +72,24 @@ public class NPCFieldOfView : MonoBehaviour
             Vector3 friendPos = friends[i].transform.position;
             friendPos.y += 1.0f;
             Vector3 friendDirection = (friendPos - eye.transform.position).normalized;
-            
 
-
-            // 2. is the object within fov?
+            // is friend within fov?
             if (Vector3.Angle(eye.transform.forward, friendDirection) < fovAngle / 2)
             {
-                // 3. do we have line of sight?
+                // do we have line of sight?
                 float distance = Vector3.Distance(eye.transform.position, friendPos);
-
-                RaycastHit hit;
 
                 if (!Physics.Raycast(eye.transform.position, friendDirection,
                 distance, wallLayer) && !Physics.Raycast(eye.transform.position, friendDirection,
                 distance, threatLayer))
                 {
-                    canSeeFriend = true;
 
-                    // make NPC look toward other NPC
-                    //Quaternion targetRotation = Quaternion.LookRotation(friendDirection);
-                    //transform.rotation = Quaternion.Slerp(eye.transform.rotation, targetRotation, 0.5f);
-
-                    // change to target visible state
-                    stateMachine.SetFriend(friends[i].transform);
-                    stateMachine.SetState(NPCState.Chatting);
+                    if (friends[i].GetComponent<NPC>().isFeelingFriendly)
+                    {
+                        // change to chatting state
+                        stateMachine.SetFriend(friends[i].transform);
+                        stateMachine.SetState(NPCState.Chatting);
+                    }
 
                     return;
 
@@ -108,8 +100,6 @@ public class NPCFieldOfView : MonoBehaviour
 
     private void LookForThreats()
     {
-        // 1. any objects within our vision radius
-        bool canSeeThreat = false;
         Collider[] threats = Physics.OverlapSphere(eye.transform.position,
         visionRadius, threatLayer);
 
@@ -120,22 +110,17 @@ public class NPCFieldOfView : MonoBehaviour
             threatPos.y += 1.0f;
             Vector3 threatDirection = (threatPos - eye.transform.position).normalized;
 
-
-
-            // 2. is the object within fov?
+            // is the threat within fov?
             if (Vector3.Angle(eye.transform.forward, threatDirection) < fovAngle / 2)
             {
-                // 3. do we have line of sight?
+                // do we have line of sight?
                 float distance = Vector3.Distance(eye.transform.position, threatPos);
-
-                RaycastHit hit;
 
                 if (!Physics.Raycast(eye.transform.position, threatDirection,
                 distance, wallLayer) && !Physics.Raycast(eye.transform.position, threatDirection,
                 distance, npcLayer))
                 {
-                    canSeeThreat = true;
-                    // change to target visible state
+                    // change to In Danger state
                     stateMachine.SetThreat(threats[i].transform);
                     stateMachine.SetState(NPCState.InDanger);
 

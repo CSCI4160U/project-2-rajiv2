@@ -112,6 +112,8 @@ public class NPC : MonoBehaviour
 
     public IEnumerator ResetFriendliness()
     {
+        isFeelingFriendly = false;
+
         yield return new WaitForSeconds(isFeelingFriendlyCoolDown);
 
         isFeelingFriendly = true;

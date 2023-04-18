@@ -67,7 +67,7 @@ public class EnemyAIStateMachine : MonoBehaviour
         enemy = GetComponent<Enemy>();
         if (agent != null && waypoints.Length > 0)
         {
-            agent.SetDestination(waypoints[waypointIndex].position);
+            ResetWayPoint();
             walkingSpeed = agent.speed;
         }
     }
@@ -93,8 +93,9 @@ public class EnemyAIStateMachine : MonoBehaviour
 
         animator.SetBool("isDead", false);
         animator.SetBool("isReviving", false);
-        ResetWayPoint();
         SetState(EnemyState.Patrolling);
+        ResetWayPoint();
+        
     }
 
     IEnumerator KillCoolDown()

@@ -160,7 +160,7 @@ MonoBehaviour:
   wallLayers:
     serializedVersion: 2
     m_Bits: 776
-  farEnoughDistanceFromThreat: 100
+  farEnoughDistanceFromThreat: 60
   eye: {fileID: 4598718699996186755}
   friend: {fileID: 0}
   npcLayers:

@@ -14,40 +14,40 @@ public class PatternBlock : MonoBehaviour
     public bool wasActivated;
 
     private float activeTime = 1f;
-    private Renderer renderer;
+    private Renderer rend;
 
     private void Start()
     {
-        renderer = GetComponent<Renderer>();
-        renderer.enabled = true;
-        renderer.sharedMaterial = defaultMaterial;
+        rend = GetComponent<Renderer>();
+        rend.enabled = true;
+        rend.sharedMaterial = defaultMaterial;
     }
 
     public IEnumerator FlashBlockActive()
     {
         // set material to active
-        renderer.sharedMaterial = activeMaterial;
+        rend.sharedMaterial = activeMaterial;
         yield return new WaitForSeconds(activeTime);
         // set material to default
-        renderer.sharedMaterial = defaultMaterial;
+        rend.sharedMaterial = defaultMaterial;
     }
 
     public IEnumerator FlashBlockCorrect()
     {
         // set material to active
-        renderer.sharedMaterial = correctMaterial;
+        rend.sharedMaterial = correctMaterial;
         yield return new WaitForSeconds(2);
         // set material to default
-        renderer.sharedMaterial = defaultMaterial;
+        rend.sharedMaterial = defaultMaterial;
     }
 
     public IEnumerator FlashBlockIncorrect()
     {
         // set material to active
-        renderer.sharedMaterial = incorrectMaterial;
+        rend.sharedMaterial = incorrectMaterial;
         yield return new WaitForSeconds(0.5f);
         // set material to default
-        renderer.sharedMaterial = defaultMaterial;
+        rend.sharedMaterial = defaultMaterial;
     }
 
     public void SetActiveTime(float time)

@@ -55,14 +55,15 @@ public class NPCAIStateMachine : MonoBehaviour
 
     private void Start()
     {
-
+        currentState = NPCState.Walking;
         animator.speed = 1f;
         agent = GetComponent<NavMeshAgent>();
         npc = GetComponent<NPC>();
-            
+
         if (agent != null && waypoints.Length > 0)
         {
-            agent.SetDestination(waypoints[waypointIndex].position);
+            waypointIndex = 0;
+            ResetWayPoint();
             walkingSpeed = agent.speed;
         }
     }
@@ -101,14 +102,13 @@ public class NPCAIStateMachine : MonoBehaviour
         {
             // resume patrol
             agent.enabled = true;
-            waypointIndex = 0;
         }
         else if (newState == NPCState.InDanger)
         {
             agent.enabled = true;
-            
+
         }
-        else if(newState == NPCState.Idle)
+        else if (newState == NPCState.Idle)
         {
             agent.enabled = false;
             animator.SetFloat("Forward", 0.0f);
@@ -120,7 +120,7 @@ public class NPCAIStateMachine : MonoBehaviour
             animator.SetFloat("Forward", 0.0f);
             lastChatTime = Time.time;
         }
-        
+
         else if (newState == NPCState.Dead)
         {
             // disable navigation and play death animation
@@ -155,7 +155,7 @@ public class NPCAIStateMachine : MonoBehaviour
         }
         else if (currentState == NPCState.Idle)
         {
-            if(Time.time > (lastIdleTime + idleCoolDown))
+            if (Time.time > (lastIdleTime + idleCoolDown))
             {
                 SetState(NPCState.Walking);
                 ResetWayPoint();
@@ -170,16 +170,14 @@ public class NPCAIStateMachine : MonoBehaviour
         {
             if (Time.time > (lastChatTime + chatCoolDown))
             {
-                chatMate.isFeelingFriendly = false;
-
-                animator.ResetTrigger("Chat");
+                StartCoroutine(npc.ResetFriendliness());
                 SetState(NPCState.Idle);
             }
             else
             {
                 Chat();
             }
-            
+
         }
 
         if (mustEnterCode)
@@ -286,17 +284,34 @@ public class NPCAIStateMachine : MonoBehaviour
         // TODO: Use these to check whether or not NPC is talking with a corpse lol
         chatMate = friend.GetComponent<NPC>();
 
+        //chatMate.GetChatRequest(npc);
+
         NPCAIStateMachine chatMateAIStateMachine = chatMate.GetComponent<NPCAIStateMachine>();
 
-        // if chat mate is threatened
-        if(chatMateAIStateMachine.GetState() == NPCState.InDanger)
+        if (chatMate.isDead)
         {
+            // panic
+            SetThreat(chatMate.transform);
+            SetState(NPCState.InDanger);
+
+            return;
+        }
+        // if chat mate is threatened
+        else if (chatMateAIStateMachine.GetState() == NPCState.InDanger)
+        {
+            // be threatened as well
             SetThreat(chatMateAIStateMachine.threat);
             SetState(NPCState.InDanger);
+
+            return;
         }
+
+        
+
         // if chat mate and npc are willing to engage in conversation
-        else if (chatMate.isFeelingFriendly && !chatMate.isDead)
+        if(chatMate.isFeelingFriendly && npc.isFeelingFriendly)
         {
+
             chatMateAIStateMachine.SetFriend(npc.transform);
             chatMateAIStateMachine.SetState(NPCState.Chatting);
 
@@ -304,7 +319,7 @@ public class NPCAIStateMachine : MonoBehaviour
             Vector3 direction = friend.transform.position - agent.transform.position;
             direction.y = 0.0f;
 
-            if (direction.magnitude < chattingRange)
+            if (direction.magnitude <= chattingRange)
             {
                 agent.enabled = false; // don't walk
                 animator.SetFloat("Forward", 0.0f);
@@ -327,13 +342,12 @@ public class NPCAIStateMachine : MonoBehaviour
                 agent.SetDestination(friend.position);
                 animator.SetFloat("Forward", agent.velocity.magnitude);
 
-            } 
+            }
         }
         else
         {
             SetState(NPCState.Idle);
         }
-
 
     }
 
@@ -348,15 +362,16 @@ public class NPCAIStateMachine : MonoBehaviour
         }
         else
         {
-            // turn away the target
-            Quaternion lookRotation = Quaternion.LookRotation(-direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 0.1f);
+            Vector3 destination = threat.position - new Vector3(farEnoughDistanceFromThreat, 0, farEnoughDistanceFromThreat);
+            //// turn away the target
+            //Quaternion lookRotation = Quaternion.LookRotation(destination);
+            //transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 0.1f);
 
             // we are not close enough to attack, but are close enough to detect
             // navigate away from threat
             agent.enabled = true; // walk toward destination
             agent.speed = runSpeed;
-            agent.SetDestination(threat.position - new Vector3(farEnoughDistanceFromThreat,0,farEnoughDistanceFromThreat));
+            agent.SetDestination(destination);
             animator.SetFloat("Forward", agent.velocity.magnitude);
 
         }
