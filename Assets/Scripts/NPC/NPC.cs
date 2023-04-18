@@ -29,14 +29,16 @@ public class NPC : MonoBehaviour
      * Function takes away health of enemy based on its
      * defense and the given player's attack
      */
-    public void TakeMeleeDamage(int damage)
+    public void TakeMeleeDamage(Player player)
     {
-        if (!isDead && !isShielded)
+        if (!isDead)
         {
 
-            if (damage > 0)
+            int damage = (player.GetAttackPower() - this.defense);
+            if (damage > 0 && !isShielded)
             {
                 this.health -= damage;
+                Debug.Log(player.userName + " has dealt " + damage + " damage to " + npcName);
 
                 // take damage animation
                 animator.SetTrigger("tookDamage");
@@ -46,11 +48,17 @@ public class NPC : MonoBehaviour
             if (health <= 0)
             {
                 Die();
+
+                // decrease player score
+                player.playerScore -= value;
             }
+
+            stateMachine.SetThreat(player.transform);
+            stateMachine.SetState(NPCState.InDanger);
         }
     }
 
-    public void TakeGunDamage(int damage)
+    public void TakeGunDamage(Player player)
     {
         if (!isDead)
         {
@@ -62,17 +70,27 @@ public class NPC : MonoBehaviour
             // if not shielded
             else
             {
+                // if enemy hasn't seen player, now they see them once they are hit
+                stateMachine.SetThreat(player.transform);
+                stateMachine.SetState(NPCState.InDanger);
 
+                int damage = (player.gun.power - this.defense);
                 if (damage > 0)
                 {
                     this.health -= damage;
-                    animator.SetTrigger("tookDamage");
+                    Debug.Log(player.userName + " has dealt " + damage + " damage to " + npcName);
+
+                    // take damage animation
+                    //animator.SetTrigger("tookDamage");
                 }
 
 
                 if (health <= 0)
                 {
                     Die();
+
+                    // decrease player score
+                    player.playerScore -= value;
                 }
             }
 

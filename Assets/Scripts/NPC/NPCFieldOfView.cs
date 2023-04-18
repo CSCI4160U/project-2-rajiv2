@@ -86,13 +86,14 @@ public class NPCFieldOfView : MonoBehaviour
                 RaycastHit hit;
 
                 if (!Physics.Raycast(eye.transform.position, friendDirection,
-                distance, wallLayer))
+                distance, wallLayer) && !Physics.Raycast(eye.transform.position, friendDirection,
+                distance, threatLayer))
                 {
                     canSeeFriend = true;
 
                     // make NPC look toward other NPC
-                    Quaternion targetRotation = Quaternion.LookRotation(friendDirection);
-                    transform.rotation = Quaternion.Slerp(eye.transform.rotation, targetRotation, 0.5f);
+                    //Quaternion targetRotation = Quaternion.LookRotation(friendDirection);
+                    //transform.rotation = Quaternion.Slerp(eye.transform.rotation, targetRotation, 0.5f);
 
                     // change to target visible state
                     stateMachine.SetFriend(friends[i].transform);
@@ -130,7 +131,8 @@ public class NPCFieldOfView : MonoBehaviour
                 RaycastHit hit;
 
                 if (!Physics.Raycast(eye.transform.position, threatDirection,
-                distance, wallLayer))
+                distance, wallLayer) && !Physics.Raycast(eye.transform.position, threatDirection,
+                distance, npcLayer))
                 {
                     canSeeThreat = true;
                     // change to target visible state

@@ -25,12 +25,16 @@ public class NPCAIStateMachine : MonoBehaviour
     [SerializeField] private LayerMask playerLayers;
     [SerializeField] private LayerMask enemyLayers;
     [SerializeField] private LayerMask wallLayers;
+    [SerializeField] private float farEnoughDistanceFromThreat;
 
     [Header("Chatting")]
     [SerializeField] private Transform eye;
     [SerializeField] private Transform friend = null;
     [SerializeField] private LayerMask npcLayers;
     [SerializeField] private float chattingRange = 5f;
+    [SerializeField] private int numChattingAnimations = 5;
+    [SerializeField] private float lastChatTime = 0f;
+    [SerializeField] private float chatCoolDown = 20f;
 
     [Header("During Emergencies")]
     [SerializeField] private float useDistance;
@@ -147,13 +151,20 @@ public class NPCAIStateMachine : MonoBehaviour
         }
         else if (currentState == NPCState.InDanger)
         {
-            // Run Away
+            RunAwayFromThreat();
 
             // activate running
             animator.SetTrigger("isEmergency");
         }
         else if (currentState == NPCState.Chatting)
         {
+            if (Time.time > (lastChatTime + chatCoolDown))
+            {
+                animator.ResetTrigger("Chat");
+                ResetWayPoint();
+                SetState(NPCState.Walking);
+                Walk();
+            }
             Chat();
         }
 
@@ -162,7 +173,7 @@ public class NPCAIStateMachine : MonoBehaviour
             EnterCode();
         }
 
-        if (alarmActivated || mustEnterCode)
+        if (alarmActivated || mustEnterCode || currentState == NPCState.InDanger)
         {
             agent.speed = runSpeed;
         }
@@ -254,19 +265,91 @@ public class NPCAIStateMachine : MonoBehaviour
         }
         animator.SetFloat("Forward", agent.velocity.magnitude);
     }
+
     private void Chat()
     {
+        // friend can be player or NPC
+
+        NPC npc;
+        Player player;
+
+        //float distanceToTarget = Vector3.Distance(agent.transform.position, player.transform.position);
+        Vector3 direction = friend.transform.position - agent.transform.position;
+        direction.y = 0.0f;
+
+        if (direction.magnitude < chattingRange)
+        {
+            agent.enabled = false; // don't walk
+            animator.SetFloat("Forward", 0.0f);
+            animator.SetInteger("ChatNum", Random.Range(1, numChattingAnimations));
             animator.SetTrigger("Chat");
 
-            // TODO: Do raycast to calculate damage
-            //RaycastHit hit;
+            // we have previously started attacking
 
-            //// if npc near another npc
-            //if (Physics.Raycast(eye.position, eye.forward, out hit, chattingRange, npcLayers))
-            //{
-            //    Vector3 targetDirection = (hit.transform.position - eye.position).normalized;
-            //    Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
-            //    transform.rotation = Quaternion.Slerp(eye.rotation, targetRotation, 0.5f);
-            //}
+            // turn toward the friend
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 0.1f);
+        }
+        else if (direction.magnitude < chattingRange + 15)
+        {
+
+            // we are not close enough to attack, but are close enough to detect
+            // navigate toward the target
+            agent.enabled = true; // walk toward destination
+            agent.speed = walkingSpeed;
+            agent.SetDestination(friend.position);
+            animator.SetFloat("Forward", agent.velocity.magnitude);
+
+        }
+
     }
+
+    private void RunAwayFromThreat()
+    {
+        //float distanceToTarget = Vector3.Distance(agent.transform.position, player.transform.position);
+        Vector3 direction = threat.transform.position - agent.transform.position;
+        direction.y = 0.0f;
+
+        if (direction.magnitude > farEnoughDistanceFromThreat)
+        {
+            ResetWayPoint();
+            //agent.enabled = false; // don't walk
+            //animator.SetFloat("Forward", 0.0f);
+            //animator.SetInteger("AttackNum", Random.Range(1, numAttackAnimations));
+            //animator.SetTrigger("Attack");
+
+            // we have previously started attacking
+
+            // turn away the target
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 0.1f);
+        }
+        else
+        {
+
+            // we are not close enough to attack, but are close enough to detect
+            // navigate toward the target
+            agent.enabled = true; // walk toward destination
+            agent.speed = runSpeed;
+            agent.Move(threat.position + new Vector3(-farEnoughDistanceFromThreat, 0,-farEnoughDistanceFromThreat));
+            animator.SetFloat("Forward", agent.velocity.magnitude);
+
+        }
+
+    }
+    //private void Chat()
+    //{
+    //        animator.SetTrigger("Chat");
+
+    //        // TODO: Do raycast to calculate damage
+    //        //RaycastHit hit;
+
+    //        //// if npc near another npc
+    //        //if (Physics.Raycast(eye.position, eye.forward, out hit, chattingRange, npcLayers))
+    //        //{
+    //        //    Vector3 targetDirection = (hit.transform.position - eye.position).normalized;
+    //        //    Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+    //        //    transform.rotation = Quaternion.Slerp(eye.rotation, targetRotation, 0.5f);
+    //        //}
+    //}
 }

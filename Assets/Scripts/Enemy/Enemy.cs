@@ -42,11 +42,11 @@ public class Enemy : MonoBehaviour
      */
     public void TakeMeleeDamage(Player player)
     {
-        if (!isDead && !isShielded)
+        if (!isDead)
         {
 
             int damage = (player.GetAttackPower() - this.defense);
-            if (damage > 0)
+            if (damage > 0 && !isShielded)
             {
                 this.health -= damage;
                 Debug.Log(player.userName + " has dealt " + damage + " damage to " + enemyName);

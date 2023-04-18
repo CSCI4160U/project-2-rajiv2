@@ -6,11 +6,11 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] private Transform mainCamera = null;
     [SerializeField] private LayerMask wallLayers;
     [SerializeField] private LayerMask interactiveLayers;
-    [SerializeField] private LayerMask enemyLayers;
+    [SerializeField] private LayerMask victimLayers;
     [SerializeField] private GameObject bulletHolePrefab;
     private Animator gunAnimator = null;
     private ParticleSystem muzzleFlash;
-    private Animator enemyAnimator = null;
+    private Animator victimAnimator = null;
     private Player player = null;
 
     public static PlayerShoot _instance;
@@ -39,22 +39,37 @@ public class PlayerShoot : MonoBehaviour
         RaycastHit hit;
 
         // if player hits an enemy
-        if (Physics.Raycast(mainCamera.position, mainCamera.forward, out hit, player.gun.range, enemyLayers))
+        if (Physics.Raycast(mainCamera.position, mainCamera.forward, out hit, player.gun.range, victimLayers))
         {
             Enemy shotEnemy = hit.collider.GetComponent<Enemy>();
-            if(shotEnemy != null)
+            NPC shotNPC = hit.collider.GetComponent<NPC>();
+
+            if (shotEnemy != null)
             {
-                enemyAnimator = shotEnemy.GetComponentInChildren<Animator>();
+                victimAnimator = shotEnemy.GetComponentInChildren<Animator>();
                 shotEnemy.TakeGunDamage(player);
 
                 if (shotEnemy.isDead)
                 {
-                    enemyAnimator.SetBool("isDead", true);
+                    victimAnimator.SetBool("isDead", true);
                 }
+                Debug.Log("Shot the following enemy: " + shotEnemy.name);
             }
-            
 
-            Debug.Log("Shot the following enemy: " + hit.collider.name);
+            if (shotNPC != null)
+            {
+                victimAnimator = shotNPC.GetComponentInChildren<Animator>();
+                shotNPC.TakeGunDamage(player);
+
+                if (shotNPC.isDead)
+                {
+                    victimAnimator.SetBool("isDead", true);
+                }
+                Debug.Log("Shot the following NPC: " + shotNPC.name);
+            }
+
+
+            
             
         }
         // if an obstacle prevents player from hitting enemy

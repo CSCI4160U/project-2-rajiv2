@@ -6,7 +6,7 @@ public enum EnemyState
 {
     Patrolling, Alerted, TargetVisible, Dead, Reviving
 }
-[RequireComponent(typeof(Enemy))]
+
 public class EnemyAIStateMachine : MonoBehaviour
 {
     [SerializeField] private EnemyState currentState = EnemyState.Patrolling;
