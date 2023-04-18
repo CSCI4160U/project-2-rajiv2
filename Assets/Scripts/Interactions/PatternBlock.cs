@@ -16,10 +16,15 @@ public class PatternBlock : MonoBehaviour
     private float activeTime = 1f;
     private Renderer rend;
 
-    private void Start()
+    public void Start()
     {
         rend = GetComponent<Renderer>();
         rend.enabled = true;
+        ResetMaterial();
+    }
+
+    public void ResetMaterial()
+    {
         rend.sharedMaterial = defaultMaterial;
     }
 
@@ -32,13 +37,10 @@ public class PatternBlock : MonoBehaviour
         rend.sharedMaterial = defaultMaterial;
     }
 
-    public IEnumerator FlashBlockCorrect()
+    public void ShowBlockCorrect()
     {
         // set material to active
         rend.sharedMaterial = correctMaterial;
-        yield return new WaitForSeconds(2);
-        // set material to default
-        rend.sharedMaterial = defaultMaterial;
     }
 
     public IEnumerator FlashBlockIncorrect()

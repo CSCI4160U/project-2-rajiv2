@@ -111,13 +111,13 @@ MonoBehaviour:
     m_Bits: 64
   wallLayers:
     serializedVersion: 2
-    m_Bits: 776
+    m_Bits: 1800
   bulletHolePrefab: {fileID: 9147405407432069908, guid: 4c9da22d075ed264585abc67f73d3b06,
     type: 3}
   useDistance: 2
   runSpeed: 8
   alarmSystem: {fileID: 0}
-  reviveCoolDownTime: 20
+  reviveCoolDownTime: 10
 --- !u!195 &2929791686153495103
 NavMeshAgent:
   m_ObjectHideFlags: 0

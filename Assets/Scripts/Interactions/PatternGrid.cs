@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Threading.Tasks;
+using UnityEngine.UI;
+using TMPro;
 
 public class PatternGrid : MonoBehaviour
 {
     public bool isActive = false;
     public bool startWithFullPattern = false;
+    public bool isComplete = false;
+    [SerializeField] private Canvas hintCanvas = null;
+    private TextMeshProUGUI hintText;
     private PatternBlock[,] patternBlocks;
     private int n;
 
@@ -24,9 +29,16 @@ public class PatternGrid : MonoBehaviour
     private int guessesAllowed;
     private int currentGuess;
 
+    private void Awake()
+    {
+        if (hintCanvas != null)
+        {
+            hintText = hintCanvas.GetComponentInChildren<TextMeshProUGUI>();
+            hintCanvas.gameObject.SetActive(false);
+        }
+    }
     private void Start()
     {
-        
         userCanGuess = false;
         showPattern = true;
         
@@ -65,6 +77,13 @@ public class PatternGrid : MonoBehaviour
                 {
                     if (patternBlocks[i, j].sequenceNumber == s)
                     {
+                        
+                        if (isComplete) 
+                        {
+                            // reset material
+                            patternBlocks[i, j].ResetMaterial();
+                        }
+
                         // Add to the display queue
                         displayBlocks.Add(patternBlocks[i, j]);
 
@@ -115,11 +134,11 @@ public class PatternGrid : MonoBehaviour
         }
     }
 
-    private void FlashBlocksCorrect()
+    private void ShowBlocksCorrect()
     {
         for (int i = 0; i < displayBlocks.Count; i++)
         {
-            StartCoroutine(displayBlocks[i].FlashBlockCorrect());
+            displayBlocks[i].ShowBlockCorrect();
         }
     }
 
@@ -197,17 +216,59 @@ public class PatternGrid : MonoBehaviour
             if (currentGuess == displayBlocks.Count)
             {
                 // Done
-                FlashBlocksCorrect();
+                ShowBlocksCorrect();
+                isComplete = true;
                 isActive = false;
             }
             else if (currentGuess == guessesAllowed)
             {
                 displayIndex++;
+                Debug.Log("Display index = " + displayIndex);
                 showPattern = true;
             }
         }
     }
-    
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            if (hintCanvas != null)
+            {
+                hintCanvas.gameObject.SetActive(true);
+                // show on UI to press Q
+                if (isActive)
+                {
+                    // Reset Pattern
+                    hintText.text = "Press Q to Reset Pattern";
+                }
+                else
+                {
+                    // Start Pattern
+                    hintText.text = "Press Q to Start Pattern";
+                }
+            }
+            
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        // hide UI
+        if (hintCanvas != null)
+        {
+            hintCanvas.gameObject.SetActive(false);
+        }
+        
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            isActive = !isActive;
+        }
+    }
 
     private void FixedUpdate()
     {
@@ -215,8 +276,7 @@ public class PatternGrid : MonoBehaviour
         {
             return;
         }
-
-        if(displayIndex < displayBlocks.Count && displayIndex >= 1)
+        if (displayIndex <= displayBlocks.Count && displayIndex >= 1)
         {
             ShowPattern();
 

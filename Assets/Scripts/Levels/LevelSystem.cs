@@ -6,15 +6,20 @@ public class LevelSystem : MonoBehaviour
 {
     private Level[] levels = new Level[] { 
         new Level("LVL 1",0,0,0),
-        new Level("LVL 2",1000,2,2),
-        new Level("LVL 3",5000,4,2),
-        new Level("LVL 4",10000,6,3),
-        new Level("LVL 5",15000,8,4),
-        new Level("LVL 6",20000,10,5),
-        new Level("LVL 7",25000,12,6),
-        new Level("LVL 8",30000,14,7),
-        new Level("LVL 9",40000,16,8),
-        new Level("LVL 10",50000,20,10),
+        new Level("LVL 2",500,2,2),
+        new Level("LVL 3",1200,4,2),
+        new Level("LVL 4",2000,6,3),
+        new Level("LVL 5",3000,8,4),
+        new Level("LVL 6",4500,10,5),
+        new Level("LVL 7",6500,12,6),
+        new Level("LVL 8",9000,14,7),
+        new Level("LVL 9",12000,16,8),
+        new Level("LVL 10",16000,20,10),
+        new Level("LVL 11",24000,21,11),
+        new Level("LVL 12",35000,24,12),
+        new Level("LVL 13",50000,26,14),
+        new Level("LVL 14",70000,30,17),
+        new Level("LVL 15",100000,35,20),
     };
 
     [SerializeField] private Player player = null;
@@ -64,9 +69,10 @@ public class LevelSystem : MonoBehaviour
                     player.Heal(player.maxHealth);
 
                     // show message in console for 10 seconds
-                    HUDConsole._instance.Log(player.userName + " has reached " +currentLvl.levelName+"!\n"+
-                    "Enjoy full health, +" + currentLvl.attackBoost + " Attack and "+
-                    "+" + currentLvl.defenseBoost + " Defense!" , 10f);
+                    //HUDConsole._instance.Log(player.userName + " has reached " +currentLvl.levelName+"!\n"+
+                    //"Enjoy full health, +" + currentLvl.attackBoost + " Attack and "+
+                    //"+" + currentLvl.defenseBoost + " Defense!" , 10f);
+                    HUDConsole._instance.Log(player.userName + " has reached " + currentLvl.levelName + "!\nHealth was restored!",10f);
                 }
 
                 // Updating Text in HUD

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class DoorPortal : MonoBehaviour
 {
@@ -15,8 +16,11 @@ public class DoorPortal : MonoBehaviour
     [SerializeField] private float requiredDistance = 5f;
     [SerializeField] private bool isPortal = false;
     [SerializeField] private bool isOpen = false;
-    [SerializeField] private GameObject hint = null;
+    [SerializeField] private Canvas hintCanvas = null;
+    private TextMeshProUGUI hintText;
     [SerializeField] private Animator doorAnimator = null;
+    [SerializeField] private PatternGrid patternGrid = null;
+    [SerializeField] private bool requiresPatternGridToUnlock;
 
     public static bool enteredDoorPortal = false;
     public bool isOneWay = false;
@@ -25,10 +29,30 @@ public class DoorPortal : MonoBehaviour
 
     private Player player = null;
 
+    private void Awake()
+    {
+        if (hintCanvas != null)
+        {
+            hintText = hintCanvas.GetComponentInChildren<TextMeshProUGUI>();
+            hintCanvas.gameObject.SetActive(false);
+        }
+        if (patternGrid != null)
+        {
+            requiresPatternGridToUnlock = true;
+            hintText.text = "Follow the patterns to enter...";
+        }
+        else
+        {
+            requiresPatternGridToUnlock = false;
+            hintText.text = "More is required to enter...";
+        }
+
+        
+    }
+
     private void Update()
     {
         player = FirstPersonController._instance.GetComponent<Player>();
-
         ShowHint();
     }
 
@@ -52,9 +76,13 @@ public class DoorPortal : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (canStillOpen && !isOpen)
+            if (canStillOpen && !isOpen && PlayerHasReachedGoal())
             {
                 SetDoorOpen(true);
+            }
+            else
+            {
+                Debug.Log("Door requires pattern to unlock.");
             }
             
         }
@@ -123,17 +151,17 @@ public class DoorPortal : MonoBehaviour
             if (distanceBetween <= requiredDistance)
             {
                 // show hint on how to open door
-                if (hint != null)
+                if (hintCanvas != null && !PlayerHasReachedGoal())
                 {
-                    hint.SetActive(true);
+                    hintCanvas.gameObject.SetActive(true);
                 }
             }
             else
             {
                 // hide hint on how to open door
-                if (hint != null)
+                if (hintCanvas != null)
                 {
-                    hint.SetActive(false);
+                    hintCanvas.gameObject.SetActive(false);
                 }
             }
 
@@ -148,6 +176,19 @@ public class DoorPortal : MonoBehaviour
 
         if (player != null)
         {
+            if (requiresPatternGridToUnlock)
+            {
+                if (!patternGrid.isComplete)
+                {
+                    hintText.text = "Follow the patterns to enter...";
+                    
+                    return false;
+                }
+                else
+                {
+                    requiresPatternGridToUnlock = false;
+                }
+            }
 
             // if player has reached score required
             if (player.playerScore >= scoreRequired)
@@ -156,12 +197,11 @@ public class DoorPortal : MonoBehaviour
             }
             else
             {
+                hintText.text = "You need a score of " + scoreRequired + " to progress. CURRENT SCORE: " +
+                    player.playerScore + "/" + scoreRequired + ".";
+                ShowHint();
                 Debug.Log("You need a score of " + scoreRequired + " to progress. CURRENT SCORE: " +
                     player.playerScore + "/" + scoreRequired + ".");
-
-                // show message in console for 10 seconds
-                HUDConsole._instance.Log("You need a score of " + scoreRequired + " to progress.\n CURRENT SCORE: " +
-                    player.playerScore + "/" + scoreRequired + ".", 10f);
             }
 
         }
