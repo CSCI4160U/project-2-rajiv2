@@ -13,7 +13,7 @@ public class ItemPickUp : MonoBehaviour
         if (hintCanvas != null)
         {
             hintText = hintCanvas.GetComponentInChildren<TextMeshProUGUI>();
-            hintText.text = "Press Q to pick up "+ gameObject.name + ".";
+            hintText.text = "Press Q to use "+ gameObject.name + ".";
             hintCanvas.gameObject.SetActive(false);
         }
     }
@@ -46,14 +46,21 @@ public class ItemPickUp : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q) && player != null && gameObject != null)
         {
             Gun gun = gameObject.GetComponent<Gun>();
+            HealingItem healingItem = gameObject.GetComponent<HealingItem>();
 
-            if(gun != null)
+            if (gun != null)
             {
                 gun.transform.localScale = new Vector3(1, 1, 1);
                 player.gun = gun;
                 Destroy(gun.gameObject);
             }
-            
+
+            if (healingItem != null)
+            {
+                player.Heal(healingItem.healingPower);
+                HUDConsole._instance.Log(player.name+" got healed using " + healingItem.itemName,5f);
+            }
+
         }
     }
 }

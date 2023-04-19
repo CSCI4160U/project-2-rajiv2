@@ -9,6 +9,4 @@ public class GameStatisticsData
     // store Scene names where Enemy was defeated
     public List<string> bossesDefeatedScenes = new List<string>();
 
-    // stores names of puzzles that the player has completed
-    public List<string> puzzlesCompleted = new List<string>();
 }

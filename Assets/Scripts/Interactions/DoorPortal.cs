@@ -80,11 +80,14 @@ public class DoorPortal : MonoBehaviour
             {
                 SetDoorOpen(true);
             }
-            else
-            {
-                Debug.Log("Door requires pattern to unlock.");
-            }
             
+        }
+        else if (other.CompareTag("Enemy"))
+        {
+            if (canStillOpen && !isPortal)
+            {
+                SetDoorOpen(true);
+            }
         }
     }
 
@@ -113,9 +116,13 @@ public class DoorPortal : MonoBehaviour
                     GoThroughDoorPortal();
                 }
             }
-
-            
-            
+        }
+        else if (other.CompareTag("Enemy"))
+        {
+            if (!isOneWay)
+            {
+                SetDoorOpen(false);
+            }
         }
     }
 

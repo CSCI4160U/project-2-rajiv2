@@ -187,7 +187,6 @@ public class SaveManager : MonoBehaviour
     {
         this.gameStatisticsData.bossesDefeatedNames = player.bossesDefeatedNames;
         this.gameStatisticsData.bossesDefeatedScenes = player.bossesDefeatedScenes;
-        this.gameStatisticsData.puzzlesCompleted = player.puzzlesCompleted;
 
         JSONLoaderSaver.SaveGameStatisticsDataAsJSON(savePath, "gameStatisticsData.json", this.gameStatisticsData);
     }
@@ -200,7 +199,6 @@ public class SaveManager : MonoBehaviour
         {
             player.bossesDefeatedNames = gameStatisticsData.bossesDefeatedNames;
             player.bossesDefeatedScenes = gameStatisticsData.bossesDefeatedScenes;
-            player.puzzlesCompleted = gameStatisticsData.puzzlesCompleted;
         }
 
         // removing already defeated bosses from the scene (TODO: only enable if player has completed the puzzle)
