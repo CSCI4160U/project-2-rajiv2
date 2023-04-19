@@ -6024,7 +6024,7 @@ PrefabInstance:
     - target: {fileID: 2886435500785664499, guid: ce00a5a63b68daa4589dc042700bfb23,
         type: 3}
       propertyPath: m_Name
-      value: jj_door_4_white
+      value: Portal0
       objectReference: {fileID: 0}
     - target: {fileID: 5471798539750897475, guid: ce00a5a63b68daa4589dc042700bfb23,
         type: 3}

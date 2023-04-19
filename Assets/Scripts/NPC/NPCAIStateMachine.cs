@@ -60,7 +60,7 @@ public class NPCAIStateMachine : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         npc = GetComponent<NPC>();
 
-        if (agent != null && waypoints.Length > 0)
+        if (agent != null)
         {
             waypointIndex = 0;
             ResetWayPoint();
@@ -81,7 +81,10 @@ public class NPCAIStateMachine : MonoBehaviour
 
     private void ResetWayPoint()
     {
-        agent.SetDestination(waypoints[waypointIndex].position);
+        if (agent != null && waypoints.Length > 0)
+        { 
+            agent.SetDestination(waypoints[waypointIndex].position);
+        }
     }
 
     public NPCState GetState()

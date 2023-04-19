@@ -95,6 +95,22 @@ public class Player : MonoBehaviour
         CheckHealth();
     }
 
+    public void TakeHazardDamage(Hazard hazard)
+    {
+        int damage = (hazard.damage - this.currentDefense);
+
+        if (damage > 0)
+        {
+            health -= damage;
+
+            Debug.Log(userName + " was hit by hazard.");
+
+            //getHurtSoundEffect.Play();
+        }
+
+        CheckHealth();
+    }
+
     private void CheckHealth()
     {
         if (health <= 0)
@@ -107,14 +123,14 @@ public class Player : MonoBehaviour
      * Function does death animation disables colliders
      * and disables this component when the enemy is dead
      */
-    private void Die()
+    public void Die()
     {
         isDead = true;
 
-        Debug.Log(userName + " has been defeated!");
+        Debug.Log(userName + " has died!");
 
         // show message in console for 3 seconds
-        HUDConsole._instance.Log(userName + " has been defeated!", 3f);
+        HUDConsole._instance.Log(userName + " has died!", 3f);
 
         // disable Player from being able to hit enemy
         this.GetComponent<Collider>().enabled = false;

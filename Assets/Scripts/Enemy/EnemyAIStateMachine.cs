@@ -418,18 +418,18 @@ public class EnemyAIStateMachine : MonoBehaviour
             // TODO: Do raycast to calculate damage
             RaycastHit hit;
 
-            // if player hits an enemy
+            // if enemy hits a player
             if (Physics.Raycast(eye.position, eye.forward, out hit, enemy.gun.range, playerLayers))
             {
                 Player shotPlayer = hit.collider.GetComponent<Player>();
                 if (shotPlayer != null)
                 {
                     shotPlayer.TakeGunDamage(enemy);
-                }
 
-                if (shotPlayer.isDead)
-                {
-                    SetState(EnemyState.Alerted);
+                    if (shotPlayer.isDead)
+                    {
+                        SetState(EnemyState.Alerted);
+                    }
                 }
 
                 Debug.Log("Shot the following player: " + hit.collider.name);

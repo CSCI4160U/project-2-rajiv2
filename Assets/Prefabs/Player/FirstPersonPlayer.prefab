@@ -326,7 +326,7 @@ MonoBehaviour:
     m_Bits: 1024
   victimLayers:
     serializedVersion: 2
-    m_Bits: 2176
+    m_Bits: 6272
   bulletHolePrefab: {fileID: 9147405407432069908, guid: 4c9da22d075ed264585abc67f73d3b06,
     type: 3}
 --- !u!136 &8991184903024023291

@@ -31,8 +31,6 @@ public class FirstPersonController : MonoBehaviour
 
     private CharacterController controller;
     
-    private float defaultControllerHeight;
-    private float defaultControllerCenterY;
     private float verticalRotation = 0f;
     private float verticalSpeed = 0f;
     private bool isGrounded = false;
@@ -43,42 +41,12 @@ public class FirstPersonController : MonoBehaviour
         _instance = this;
         cameraDefaultY = firstPersonCamera.position.y;
         controller = GetComponent<CharacterController>();
-        defaultControllerHeight = controller.height;
-        defaultControllerCenterY = controller.center.y;
     }
     private void Start()
     {
         player = GetComponent<Player>();
         Cursor.lockState = CursorLockMode.Locked;
         verticalRotation = 0f;
-    }
-
-    private void Crouch()
-    {
-        // handle crouching
-        if (Input.GetButtonDown("Crouch") && isGrounded)
-        {
-            isCrouching = !isCrouching;
-        }
-
-        //if (isCrouching)
-        //{
-        //    // change camera height (Y)
-        //    camera.localPosition = new Vector3(camera.localPosition.x, -1.9f, camera.localPosition.z);
-
-        //    // change character controller height and center Y
-        //    controller.height = crouchControllerHeight;
-        //    controller.center = new Vector3(controller.center.x, crouchControllerCenterY, controller.center.z);
-        //}
-        //else
-        //{
-        //    // reset camera height
-        //    camera.position = new Vector3(camera.position.x, cameraDefaultY, camera.position.z);
-
-        //    // reset character contrller height and center Y
-        //    controller.height = defaultControllerHeight;
-        //    controller.center = new Vector3(controller.center.x, defaultControllerCenterY, controller.center.z);
-        //}
     }
 
     private void LookAround()
@@ -158,7 +126,6 @@ public class FirstPersonController : MonoBehaviour
 
         if (!player.isDead)
         {
-            Crouch();
             LookAround();
             Move();
         }

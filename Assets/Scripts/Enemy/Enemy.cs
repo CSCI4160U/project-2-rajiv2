@@ -84,6 +84,36 @@ public class Enemy : MonoBehaviour
             stateMachine.SetState(EnemyState.TargetVisible);
         }  
     }
+    public void TakeHazardDamage(Hazard hazard)
+    {
+        if (!isDead)
+        {
+
+            int damage = (hazard.damage - this.defense);
+            if (damage > 0 && !isShielded)
+            {
+                this.health -= damage;
+                // take damage animation
+                animator.SetTrigger("tookDamage");
+            }
+
+
+            if (health <= 0)
+            {
+                Die();
+
+                numberOfLives--;
+
+                if(!RanOutOfLives())
+                {
+                    StartCoroutine(ReviveCoolDown());
+                }
+            }
+
+            stateMachine.SetTarget(hazard.transform);
+            stateMachine.SetState(EnemyState.Alerted);
+        }
+    }
 
     public void TakeGunDamage(Player player)
     {
@@ -171,15 +201,15 @@ public class Enemy : MonoBehaviour
      * Function does death animation disables colliders
      * and disables this component when the enemy is dead
      */
-    private void Die()
+    public void Die()
     {
         stateMachine.SetState(EnemyState.Dead);
         isDead = true;
 
-        Debug.Log(enemyName + " has been defeated!");
+        Debug.Log(enemyName + " has died!");
 
         // show message in console for 3 seconds
-        HUDConsole._instance.Log(enemyName + " has been defeated!", 3f);
+        HUDConsole._instance.Log(enemyName + " has died!", 3f);
 
         // disable Player from being able to hit enemy
         this.GetComponent<Collider>().enabled = false;
