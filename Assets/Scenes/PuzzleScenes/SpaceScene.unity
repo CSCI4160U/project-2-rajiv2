@@ -1489,6 +1489,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5471798539750897475, guid: ce00a5a63b68daa4589dc042700bfb23,
         type: 3}
+      propertyPath: playerTransformInDestination
+      value: 
+      objectReference: {fileID: 11400000, guid: 9863cd46f41fc964bbefbc10092a7e2d,
+        type: 2}
+    - target: {fileID: 5471798539750897475, guid: ce00a5a63b68daa4589dc042700bfb23,
+        type: 3}
       propertyPath: playerTransformInCurrentScene
       value: 
       objectReference: {fileID: 11400000, guid: d9c3b6883916f9d43a749d1c9b94cab3,
