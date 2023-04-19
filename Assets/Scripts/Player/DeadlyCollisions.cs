@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DeadlyCollisions : MonoBehaviour
@@ -31,7 +29,7 @@ public class DeadlyCollisions : MonoBehaviour
                 player.TakeHazardDamage(hazard);
             }
 
-            if (enemy != null)
+            if (enemy != null && hazard.isHarmfulToEnemies)
             {
                 enemy.TakeHazardDamage(hazard);
             }

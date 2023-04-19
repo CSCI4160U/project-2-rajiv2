@@ -346,6 +346,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.13677868
   m_Center: {x: -0.0054918127, y: 0.104435295, z: -0.016711606}
+--- !u!114 &6851346330829316682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3295260862577860654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 418fa55c9955ee7449b0fffc793847ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  user: {fileID: 3587363618812595792}
 --- !u!1 &4267271436977531913 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2084811680363313996, guid: 16cddc9cf452bda44a6b29ba9f1c6197,
@@ -365,6 +378,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.13677868
   m_Center: {x: -0.0054918127, y: 0.104435295, z: -0.016711606}
+--- !u!114 &8695140802372772780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4267271436977531913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 418fa55c9955ee7449b0fffc793847ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  user: {fileID: 3587363618812595792}
 --- !u!4 &6891527144230752086 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 16cddc9cf452bda44a6b29ba9f1c6197,
@@ -390,6 +416,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.08402368
   m_Center: {x: -1.1146627e-11, y: 0.0842415, z: 0.0071533774}
+--- !u!114 &5517121440707134844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7370254194962456945}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 418fa55c9955ee7449b0fffc793847ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  user: {fileID: 3587363618812595792}
 --- !u!1 &9045065679507375548 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2715566404302941441, guid: 16cddc9cf452bda44a6b29ba9f1c6197,
@@ -409,3 +448,16 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.08402368
   m_Center: {x: -1.1146627e-11, y: 0.0842415, z: 0.0071533774}
+--- !u!114 &2184307637904684094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9045065679507375548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 418fa55c9955ee7449b0fffc793847ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  user: {fileID: 3587363618812595792}

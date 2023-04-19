@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f9c849d355e54478077cc04886a505, type: 3}
   m_Name: PlayerReturn_Portal1_SpaceScene
   m_EditorClassIdentifier: 
-  initialPosition: {x: -15.418972, y: 76.84, z: -11.5}
+  initialPosition: {x: -15.418972, y: 76.84, z: -14.5}
   initialRotation: {x: 0, y: 0.999208, z: 0, w: -0.03979173}
   initialSize: {x: 1, y: 1, z: 1}

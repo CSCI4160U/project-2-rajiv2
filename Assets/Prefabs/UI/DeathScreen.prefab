@@ -559,7 +559,7 @@ PrefabInstance:
     - target: {fileID: 3403936458373877260, guid: 3278644d8c322bd45a26d2fd04f60ba9,
         type: 3}
       propertyPath: m_text
-      value: Restart Level
+      value: Restart Game
       objectReference: {fileID: 0}
     - target: {fileID: 3403936458373877260, guid: 3278644d8c322bd45a26d2fd04f60ba9,
         type: 3}
@@ -710,7 +710,7 @@ PrefabInstance:
     - target: {fileID: 3403936460261302643, guid: 3278644d8c322bd45a26d2fd04f60ba9,
         type: 3}
       propertyPath: m_Name
-      value: RestartLevel
+      value: RestartGame
       objectReference: {fileID: 0}
     - target: {fileID: 3403936460261302653, guid: 3278644d8c322bd45a26d2fd04f60ba9,
         type: 3}

@@ -40,6 +40,8 @@ public class NPC : MonoBehaviour
                 this.health -= damage;
                 Debug.Log(player.userName + " has dealt " + damage + " damage to " + npcName);
 
+                HUDConsole._instance.Log("Please do not hurt NPC!", 3f);
+
                 // take damage animation
                 animator.SetTrigger("tookDamage");
             }
@@ -51,6 +53,8 @@ public class NPC : MonoBehaviour
 
                 // decrease player score
                 player.playerScore -= value;
+
+                HUDConsole._instance.Log(player.userName+ "has killed an NPC! -"+value+" points!", 3f);
             }
 
             stateMachine.SetThreat(player.transform);
