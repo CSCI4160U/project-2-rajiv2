@@ -12860,6 +12860,81 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1001 &445890387
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 910437156}
+    m_Modifications:
+    - target: {fileID: 6914506656731715787, guid: 4bcb1181b9198b14b8d707d40b2b00dc,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 6914506656731715787, guid: 4bcb1181b9198b14b8d707d40b2b00dc,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1074.0282
+      objectReference: {fileID: 0}
+    - target: {fileID: 6914506656731715787, guid: 4bcb1181b9198b14b8d707d40b2b00dc,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 466.20773
+      objectReference: {fileID: 0}
+    - target: {fileID: 6914506656731715787, guid: 4bcb1181b9198b14b8d707d40b2b00dc,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 53.29174
+      objectReference: {fileID: 0}
+    - target: {fileID: 6914506656731715787, guid: 4bcb1181b9198b14b8d707d40b2b00dc,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6914506656731715787, guid: 4bcb1181b9198b14b8d707d40b2b00dc,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6914506656731715787, guid: 4bcb1181b9198b14b8d707d40b2b00dc,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6914506656731715787, guid: 4bcb1181b9198b14b8d707d40b2b00dc,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6914506656731715787, guid: 4bcb1181b9198b14b8d707d40b2b00dc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6914506656731715787, guid: 4bcb1181b9198b14b8d707d40b2b00dc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6914506656731715787, guid: 4bcb1181b9198b14b8d707d40b2b00dc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6914506656731715789, guid: 4bcb1181b9198b14b8d707d40b2b00dc,
+        type: 3}
+      propertyPath: m_Name
+      value: BackgroundMusic
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4bcb1181b9198b14b8d707d40b2b00dc, type: 3}
+--- !u!4 &445890388 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6914506656731715787, guid: 4bcb1181b9198b14b8d707d40b2b00dc,
+    type: 3}
+  m_PrefabInstance: {fileID: 445890387}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &448010834 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6026499874919718757, guid: 02cf4773d272ab14a87619c7367fe52b,
@@ -23122,6 +23197,7 @@ Transform:
   - {fileID: 7252053109578490913}
   - {fileID: 3777245479742973679}
   - {fileID: 1066291015}
+  - {fileID: 445890388}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -52242,7 +52318,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2603376353779246100}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c8d2ec88c57c85846941d712aab99491, type: 3}
   m_Name: 
@@ -52922,7 +52998,6 @@ GameObject:
   - component: {fileID: 1922141614615891023}
   - component: {fileID: 1911818259264600621}
   - component: {fileID: 6502871258269228400}
-  - component: {fileID: 8734865978019469855}
   - component: {fileID: 791098807484215082}
   m_Layer: 8
   m_Name: Portal1
@@ -53353,7 +53428,6 @@ GameObject:
   - component: {fileID: 2418150302374969062}
   - component: {fileID: 2426279010399839450}
   - component: {fileID: 8970737522009848909}
-  - component: {fileID: 4687959146077957448}
   - component: {fileID: 7841389518870157888}
   m_Layer: 8
   m_Name: jj_door_1_red
@@ -53402,7 +53476,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5049904140448681358}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c367c2ffd0ca65249b4bd77812954be3, type: 3}
   m_Name: 
@@ -55799,30 +55873,6 @@ Transform:
   m_Father: {fileID: 2603376353779246101}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2807569354384592617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5045617324604105875}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a2343b6adb0755408e5a2013b699120, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destination: 
-  playerTransformInDestination: {fileID: 0}
-  playerTransformInCurrentScene: {fileID: 0}
-  scoreRequired: 0
-  requiredDistance: 5
-  isPortal: 0
-  isOpen: 0
-  hintCanvas: {fileID: 0}
-  doorAnimator: {fileID: 1983538002297806828}
-  patternGrid: {fileID: 0}
-  requiresPatternGridToUnlock: 0
-  isOneWay: 0
 --- !u!4 &2882974077445365172
 Transform:
   m_ObjectHideFlags: 0
@@ -55982,7 +56032,6 @@ GameObject:
   - component: {fileID: 2916942815647341752}
   - component: {fileID: 2909295705979284186}
   - component: {fileID: 7559599153804250503}
-  - component: {fileID: 5471798539738303208}
   - component: {fileID: 4047977095390855133}
   m_Layer: 8
   m_Name: Portal0
@@ -56322,54 +56371,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.0674433
   m_Center: {x: 0.0000000070144632, y: 0.06766103, z: 0.0071533686}
---- !u!114 &3547529190836993847
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5893105567150544205}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a2343b6adb0755408e5a2013b699120, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destination: 
-  playerTransformInDestination: {fileID: 0}
-  playerTransformInCurrentScene: {fileID: 0}
-  scoreRequired: 0
-  requiredDistance: 5
-  isPortal: 0
-  isOpen: 0
-  hintCanvas: {fileID: 0}
-  doorAnimator: {fileID: 886038416368987698}
-  patternGrid: {fileID: 0}
-  requiresPatternGridToUnlock: 0
-  isOneWay: 0
---- !u!114 &3761502639217287710
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6106975593322367076}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a2343b6adb0755408e5a2013b699120, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destination: 
-  playerTransformInDestination: {fileID: 0}
-  playerTransformInCurrentScene: {fileID: 0}
-  scoreRequired: 0
-  requiredDistance: 5
-  isPortal: 0
-  isOpen: 0
-  hintCanvas: {fileID: 0}
-  doorAnimator: {fileID: 667384345380696859}
-  patternGrid: {fileID: 0}
-  requiresPatternGridToUnlock: 0
-  isOneWay: 0
 --- !u!1001 &3777245479742973678
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -58041,30 +58042,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3885655959158624974}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3891180403417629840
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6265598618978430698}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a2343b6adb0755408e5a2013b699120, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destination: 
-  playerTransformInDestination: {fileID: 0}
-  playerTransformInCurrentScene: {fileID: 0}
-  scoreRequired: 0
-  requiredDistance: 5
-  isPortal: 0
-  isOpen: 0
-  hintCanvas: {fileID: 0}
-  doorAnimator: {fileID: 824356419716535701}
-  patternGrid: {fileID: 0}
-  requiresPatternGridToUnlock: 0
-  isOneWay: 1
 --- !u!65 &3905990701022937948
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -58211,7 +58188,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5049904140448681358}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2ba77fca20bf2ee449c4d0f4978ad4ad, type: 3}
   m_Name: 
@@ -58422,30 +58399,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.918903, y: 1.9499999, z: 0.040926475}
   m_Center: {x: -0.4489161, y: 0.97499996, z: -0.011338877}
---- !u!114 &4226433539308020929
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6508987494523473595}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a2343b6adb0755408e5a2013b699120, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destination: 
-  playerTransformInDestination: {fileID: 0}
-  playerTransformInCurrentScene: {fileID: 0}
-  scoreRequired: 0
-  requiredDistance: 5
-  isPortal: 0
-  isOpen: 0
-  hintCanvas: {fileID: 0}
-  doorAnimator: {fileID: 565134508986168772}
-  patternGrid: {fileID: 0}
-  requiresPatternGridToUnlock: 0
-  isOneWay: 0
 --- !u!114 &4245846687047763440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58459,30 +58412,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   user: {fileID: 5049904140448681358}
---- !u!114 &4375965045066851430
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6649936814372294172}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a2343b6adb0755408e5a2013b699120, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destination: 
-  playerTransformInDestination: {fileID: 0}
-  playerTransformInCurrentScene: {fileID: 0}
-  scoreRequired: 0
-  requiredDistance: 5
-  isPortal: 0
-  isOpen: 0
-  hintCanvas: {fileID: 0}
-  doorAnimator: {fileID: 128916880027252067}
-  patternGrid: {fileID: 0}
-  requiresPatternGridToUnlock: 0
-  isOneWay: 0
 --- !u!65 &4443021143923300522
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -60375,30 +60304,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1667ad9fc7c190f46952873a7c100b6c, type: 3}
---- !u!114 &4687959146077957448
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2449154779974027058}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a2343b6adb0755408e5a2013b699120, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destination: 
-  playerTransformInDestination: {fileID: 0}
-  playerTransformInCurrentScene: {fileID: 0}
-  scoreRequired: 0
-  requiredDistance: 5
-  isPortal: 0
-  isOpen: 0
-  hintCanvas: {fileID: 0}
-  doorAnimator: {fileID: 8970737522009848909}
-  patternGrid: {fileID: 0}
-  requiresPatternGridToUnlock: 0
-  isOneWay: 0
 --- !u!114 &4714694695007749820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60421,7 +60326,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2603376353779246100}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c367c2ffd0ca65249b4bd77812954be3, type: 3}
   m_Name: 
@@ -60598,7 +60503,6 @@ GameObject:
   - component: {fileID: 5077379297330126151}
   - component: {fileID: 5067491403383605115}
   - component: {fileID: 1983538002297806828}
-  - component: {fileID: 2807569354384592617}
   - component: {fileID: 804650416240523745}
   m_Layer: 8
   m_Name: jj_door_1_red (1)
@@ -63175,30 +63079,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5045244065761224059}
   m_Mesh: {fileID: 4300000, guid: f0d4298dcac2ffd499747abaa06977ee, type: 3}
---- !u!114 &5471798539738303208
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2886435500806650968}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a2343b6adb0755408e5a2013b699120, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destination: 
-  playerTransformInDestination: {fileID: 0}
-  playerTransformInCurrentScene: {fileID: 0}
-  scoreRequired: 0
-  requiredDistance: 5
-  isPortal: 0
-  isOpen: 0
-  hintCanvas: {fileID: 0}
-  doorAnimator: {fileID: 4047977095390855133}
-  patternGrid: {fileID: 0}
-  requiresPatternGridToUnlock: 0
-  isOneWay: 0
 --- !u!65 &5592741972255623893
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -63421,7 +63301,6 @@ GameObject:
   - component: {fileID: 5889406365729811609}
   - component: {fileID: 5881277690395342501}
   - component: {fileID: 886038416368987698}
-  - component: {fileID: 3547529190836993847}
   - component: {fileID: 2082799625161787455}
   m_Layer: 8
   m_Name: jj_door_1_red
@@ -63711,7 +63590,6 @@ GameObject:
   - component: {fileID: 6103378439986262448}
   - component: {fileID: 6095251965353585548}
   - component: {fileID: 667384345380696859}
-  - component: {fileID: 3761502639217287710}
   - component: {fileID: 1868789891018691862}
   m_Layer: 8
   m_Name: jj_door_1_red (1)
@@ -64063,7 +63941,6 @@ GameObject:
   - component: {fileID: 6233046857937737534}
   - component: {fileID: 6243425128096468226}
   - component: {fileID: 824356419716535701}
-  - component: {fileID: 3891180403417629840}
   - component: {fileID: 2007747592751182744}
   m_Layer: 8
   m_Name: jj_door_1_red
@@ -64307,7 +64184,6 @@ GameObject:
   - component: {fileID: 6496242400427865967}
   - component: {fileID: 6485864128121089363}
   - component: {fileID: 565134508986168772}
-  - component: {fileID: 4226433539308020929}
   - component: {fileID: 1692089918756443081}
   m_Layer: 8
   m_Name: jj_door_1_red (2)
@@ -64476,7 +64352,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2603376353779246100}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3.5
@@ -64498,7 +64374,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2603376353779246100}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2ba77fca20bf2ee449c4d0f4978ad4ad, type: 3}
   m_Name: 
@@ -64789,7 +64665,6 @@ GameObject:
   - component: {fileID: 6645775813317326792}
   - component: {fileID: 6638210059147357684}
   - component: {fileID: 128916880027252067}
-  - component: {fileID: 4375965045066851430}
   - component: {fileID: 1253761288237175662}
   m_Layer: 8
   m_Name: jj_door_1_red (2)
@@ -65675,7 +65550,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5049904140448681358}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c8d2ec88c57c85846941d712aab99491, type: 3}
   m_Name: 
@@ -67808,32 +67683,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   user: {fileID: 5049904140448681358}
---- !u!114 &8734865978019469855
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1934696672681307311}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a2343b6adb0755408e5a2013b699120, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destination: GrassLand
-  playerTransformInDestination: {fileID: 11400000, guid: c602ec47f128b8449b6aa0f3d776fdc8,
-    type: 2}
-  playerTransformInCurrentScene: {fileID: 11400000, guid: d9c3b6883916f9d43a749d1c9b94cab3,
-    type: 2}
-  scoreRequired: 0
-  requiredDistance: 5
-  isPortal: 1
-  isOpen: 0
-  hintCanvas: {fileID: 0}
-  doorAnimator: {fileID: 791098807484215082}
-  patternGrid: {fileID: 0}
-  requiresPatternGridToUnlock: 0
-  isOneWay: 0
 --- !u!95 &8970737522009848909
 Animator:
   serializedVersion: 5
