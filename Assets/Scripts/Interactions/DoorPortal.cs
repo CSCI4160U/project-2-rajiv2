@@ -199,7 +199,6 @@ public class DoorPortal : MonoBehaviour
             {
                 hintText.text = "You need a score of " + scoreRequired + " to progress. CURRENT SCORE: " +
                     player.playerScore + "/" + scoreRequired + ".";
-                ShowHint();
                 Debug.Log("You need a score of " + scoreRequired + " to progress. CURRENT SCORE: " +
                     player.playerScore + "/" + scoreRequired + ".");
             }
