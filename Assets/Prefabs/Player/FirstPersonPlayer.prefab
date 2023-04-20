@@ -267,13 +267,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 10
-  gravityFactor: 1
+  gravityFactor: 1.4
   groundPosition: {fileID: 9162354029802953800}
   groundLayers:
     serializedVersion: 2
     m_Bits: 8
   canAirControl: 1
-  jumpSpeed: 10
+  jumpSpeed: 7
   mouseSensitivity: 100
   firstPersonCamera: {fileID: 9162354029960090135}
   cameraCrouchY: 0
