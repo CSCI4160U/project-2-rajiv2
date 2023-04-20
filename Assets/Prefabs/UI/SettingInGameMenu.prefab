@@ -2488,8 +2488,7 @@ MonoBehaviour:
   settingsData:
     musicVolume: 0
     sfxVolume: 0
-  backgroundMusicStorage: {fileID: 0}
-  sfxAudioMixer: {fileID: 24100000, guid: e87b99b61ddce3941b9e4cab9b34de77, type: 2}
+  globalAudioMixer: {fileID: 24100000, guid: e87b99b61ddce3941b9e4cab9b34de77, type: 2}
 --- !u!1 &8338624739196585858
 GameObject:
   m_ObjectHideFlags: 0

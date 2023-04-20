@@ -4,25 +4,26 @@ using UnityEngine.Audio;
 
 public class SettingsControls : MonoBehaviour
 {
-    public static AudioSource backgroundMusic = null;
+    //public static AudioSource backgroundMusic = null;
     public Slider musicVolumeSlider = null;
     public Slider sfxVolumeSlider = null;
     private string savePath;
     public static SettingsControls _instance;
     public SettingsData settingsData = null;
-    [SerializeField] private MusicStorage backgroundMusicStorage = null;
-    [SerializeField] private AudioMixer sfxAudioMixer = null;
+    //[SerializeField] private MusicStorage backgroundMusicStorage = null;
+    [SerializeField] private AudioMixer globalAudioMixer = null;
 
     private void Awake()
     {
-        if (backgroundMusicStorage != null)
-        {
-            backgroundMusic = backgroundMusicStorage.audioSource;
-        }
+        //if (backgroundMusicStorage != null)
+        //{
+        //    backgroundMusic = backgroundMusicStorage.audioSource;
+        //}
 
         _instance = this;
 
         musicVolumeSlider.value = musicVolumeSlider.maxValue;
+        sfxVolumeSlider.value = sfxVolumeSlider.maxValue;
 
         savePath = Application.persistentDataPath + "/saveData/";
         Debug.Log("Saving Settings to path: " + savePath);
@@ -34,28 +35,33 @@ public class SettingsControls : MonoBehaviour
             SaveSettings();
         }
 
+
         LoadSettings();
     }
 
     private void FixedUpdate()
     {
-        SaveSettings();
-        LoadSettings();
+        if (AllSettingsExist())
+        {
+            SaveSettings();
+            LoadSettings();
+        }
     }
 
     private void Update()
     {
-        if(AllSettingsExist())
+        if (AllSettingsExist())
         {
             UpdateVolume();
         }
     }
 
-    
+
     private void UpdateVolume()
     {
-        backgroundMusic.volume = musicVolumeSlider.value/100;
-        sfxAudioMixer.SetFloat("master", Mathf.Log10(sfxVolumeSlider.value));
+        //backgroundMusic.volume = musicVolumeSlider.value/100;
+        globalAudioMixer.SetFloat("Music", Mathf.Log10(musicVolumeSlider.value)*20);
+        globalAudioMixer.SetFloat("SFX", Mathf.Log10(sfxVolumeSlider.value)*20);
     }
 
 
@@ -65,50 +71,40 @@ public class SettingsControls : MonoBehaviour
      */
     private bool AllSettingsExist()
     {
-        return backgroundMusic != null && sfxAudioMixer != null;
+        return globalAudioMixer != null;
     }
 
 
     [ContextMenu("Save Settings")]
     public void SaveSettings()
     {
-        if (AllSettingsExist())
-        {
-            this.settingsData.musicVolume = backgroundMusic.volume;
-            float sfxVolume;
-            sfxAudioMixer.GetFloat("master", out sfxVolume);
-            this.settingsData.sfxVolume = sfxVolume;
-            JSONLoaderSaver.SaveSettingsDataAsJSON(savePath, "settingsData.json", this.settingsData);
-        }
+
+        this.settingsData.musicVolume = musicVolumeSlider.value*100;
+
+        this.settingsData.sfxVolume = sfxVolumeSlider.value*100;
+
+        JSONLoaderSaver.SaveSettingsDataAsJSON(savePath, "settingsData.json", this.settingsData);
     }
 
     [ContextMenu("Load Settings")]
     public void LoadSettings()
     {
 
-        if (AllSettingsExist())
+        this.settingsData = JSONLoaderSaver.LoadSettingsDataFromJSON(savePath, "settingsData.json");
+
+        if (settingsData != null)
         {
-            this.settingsData = JSONLoaderSaver.LoadSettingsDataFromJSON(savePath, "settingsData.json");
+            // updating background music volume
+            globalAudioMixer.SetFloat("Music", musicVolumeSlider.value);
+            musicVolumeSlider.value = settingsData.musicVolume/100;
 
-            if(settingsData != null)
-            {
-                // updating background music volume
-                backgroundMusic.volume = settingsData.musicVolume;
-                sfxAudioMixer.SetFloat("master", settingsData.musicVolume);
-                musicVolumeSlider.value = backgroundMusic.volume * 100;
+            // updating sfx volume
+            globalAudioMixer.SetFloat("SFX", sfxVolumeSlider.value);
+            sfxVolumeSlider.value = settingsData.sfxVolume/100;
 
-                // updating sfx volume
-                float sfxVolume;
-                sfxAudioMixer.GetFloat("master", out sfxVolume);
-                sfxVolumeSlider.value = sfxVolume;
+            // ...
 
-                // ...
-
-                // TODO: other settings (eg. Input Sensitivity)
-            }
-
-
-
+            // TODO: other settings (eg. Input Sensitivity)
         }
     }
 }

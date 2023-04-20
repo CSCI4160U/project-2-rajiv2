@@ -197,10 +197,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 4959920122804279002}
   m_HandleRect: {fileID: 1844510902353117831}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 100
+  m_MinValue: 0.0001
+  m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -499,10 +499,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 3768469524170355267}
   m_HandleRect: {fileID: 8882472868908994543}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 100
+  m_MinValue: 0.0001
+  m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1322,8 +1322,8 @@ MonoBehaviour:
   sfxVolumeSlider: {fileID: 7538504565979400166}
   settingsData:
     musicVolume: 0
-  backgroundMusicStorage: {fileID: 0}
-  sfxAudioMixer: {fileID: 24100000, guid: e87b99b61ddce3941b9e4cab9b34de77, type: 2}
+    sfxVolume: 0
+  globalAudioMixer: {fileID: 24100000, guid: e87b99b61ddce3941b9e4cab9b34de77, type: 2}
 --- !u!1 &3584856755358795176
 GameObject:
   m_ObjectHideFlags: 0
