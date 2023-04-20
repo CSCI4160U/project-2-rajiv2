@@ -197,6 +197,10 @@ MonoBehaviour:
   isBrawler: 0
   gun: {fileID: 4185071124042516505}
   animator: {fileID: 820856537468201954}
+  leftFist: {fileID: 0}
+  rightFist: {fileID: 0}
+  leftFoot: {fileID: 0}
+  rightFoot: {fileID: 0}
 --- !u!114 &2930909626321229027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -429,6 +433,11 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: f44086d87c1817042a0da788d0499f09, type: 2}
+    - target: {fileID: 5866666021909216657, guid: f6abab78cf5596a459bb62bb59655063,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6abab78cf5596a459bb62bb59655063, type: 3}
 --- !u!4 &14273678367474608 stripped
