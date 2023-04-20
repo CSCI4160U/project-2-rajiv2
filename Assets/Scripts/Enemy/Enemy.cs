@@ -21,10 +21,6 @@ public class Enemy : MonoBehaviour
     public Gun gun;
     
     [SerializeField] private Animator animator;
-    [SerializeField] private MeleeWeaponDamage leftFist;
-    [SerializeField] private MeleeWeaponDamage rightFist;
-    [SerializeField] private MeleeWeaponDamage leftFoot;
-    [SerializeField] private MeleeWeaponDamage rightFoot;
     private EnemyAIStateMachine stateMachine;
     
 

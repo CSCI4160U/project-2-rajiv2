@@ -108,10 +108,10 @@ MonoBehaviour:
   eye: {fileID: 5932834836841511238}
   playerLayers:
     serializedVersion: 2
-    m_Bits: 4160
+    m_Bits: 64
   wallLayers:
     serializedVersion: 2
-    m_Bits: 1800
+    m_Bits: 776
   bulletHolePrefab: {fileID: 9147405407432069908, guid: 4c9da22d075ed264585abc67f73d3b06,
     type: 3}
   useDistance: 2
@@ -166,10 +166,6 @@ MonoBehaviour:
   isBrawler: 0
   gun: {fileID: 4183919650804383428}
   animator: {fileID: 526800235843540996}
-  leftFist: {fileID: 0}
-  rightFist: {fileID: 0}
-  leftFoot: {fileID: 0}
-  rightFoot: {fileID: 0}
 --- !u!114 &2929791686153495102
 MonoBehaviour:
   m_ObjectHideFlags: 0
