@@ -61,7 +61,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hintCanvas: {fileID: 7838042645165988784}
-  gameObject: {fileID: 6279678842992629039}
+  item: {fileID: 6279678842992629039}
 --- !u!1001 &3301082219447836259
 PrefabInstance:
   m_ObjectHideFlags: 0

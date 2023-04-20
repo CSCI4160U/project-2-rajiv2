@@ -21,6 +21,10 @@ public class Enemy : MonoBehaviour
     public Gun gun;
     
     [SerializeField] private Animator animator;
+    [SerializeField] private MeleeWeaponDamage leftFist;
+    [SerializeField] private MeleeWeaponDamage rightFist;
+    [SerializeField] private MeleeWeaponDamage leftFoot;
+    [SerializeField] private MeleeWeaponDamage rightFoot;
     private EnemyAIStateMachine stateMachine;
     
 
@@ -214,9 +218,25 @@ public class Enemy : MonoBehaviour
         // disable Player from being able to hit enemy
         this.GetComponent<Collider>().enabled = false;
 
+        // disable melee attacking
+        SetEnableMeleeAttacks(false);
+
         // disable element
         this.enabled = false;
         
+    }
+
+    private void SetEnableMeleeAttacks(bool state)
+    {
+        if (isBrawler)
+        {
+            MeleeWeaponDamage[] allMeleeWeapons = GetComponentsInChildren<MeleeWeaponDamage>();
+            Debug.Log("NUM MELEE: " + allMeleeWeapons.Length);
+            for (int i = 0; i < allMeleeWeapons.Length; i++)
+            {
+                allMeleeWeapons[i].GetComponent<Collider>().enabled = state;
+            }
+        }
     }
 
     /*
@@ -235,6 +255,9 @@ public class Enemy : MonoBehaviour
     {
         // enable Player from being able to hit enemy
         this.GetComponent<Collider>().enabled = true;
+
+        // enable melee attacking
+        SetEnableMeleeAttacks(true);
 
         // enable element
         this.enabled = true;

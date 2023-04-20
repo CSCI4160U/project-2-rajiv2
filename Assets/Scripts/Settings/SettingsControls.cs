@@ -55,7 +55,7 @@ public class SettingsControls : MonoBehaviour
     private void UpdateVolume()
     {
         backgroundMusic.volume = musicVolumeSlider.value/100;
-        sfxAudioMixer.SetFloat("master", sfxVolumeSlider.value/100);
+        sfxAudioMixer.SetFloat("master", Mathf.Log10(sfxVolumeSlider.value));
     }
 
 

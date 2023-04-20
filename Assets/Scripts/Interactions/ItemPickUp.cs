@@ -4,7 +4,7 @@ using TMPro;
 public class ItemPickUp : MonoBehaviour
 {
     [SerializeField] private Canvas hintCanvas = null;
-    [SerializeField] private GameObject gameObject = null;
+    [SerializeField] private GameObject item = null;
     private Player player = null;
     private TextMeshProUGUI hintText;
 
@@ -13,14 +13,14 @@ public class ItemPickUp : MonoBehaviour
         if (hintCanvas != null)
         {
             hintText = hintCanvas.GetComponentInChildren<TextMeshProUGUI>();
-            hintText.text = "Press Q to use "+ gameObject.name + ".";
+            hintText.text = "Press Q to use "+ item.name + ".";
             hintCanvas.gameObject.SetActive(false);
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player") && gameObject != null)
+        if (other.CompareTag("Player") && item != null)
         {
             player = other.GetComponent<Player>();
             if (hintCanvas != null)
@@ -43,10 +43,10 @@ public class ItemPickUp : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q) && player != null && gameObject != null)
+        if (Input.GetKeyDown(KeyCode.Q) && player != null && item != null)
         {
-            Gun gun = gameObject.GetComponent<Gun>();
-            HealingItem healingItem = gameObject.GetComponent<HealingItem>();
+            Gun gun = item.GetComponent<Gun>();
+            HealingItem healingItem = item.GetComponent<HealingItem>();
 
             if (gun != null)
             {
@@ -59,6 +59,7 @@ public class ItemPickUp : MonoBehaviour
             {
                 player.Heal(healingItem.healingPower);
                 HUDConsole._instance.Log(player.name+" got healed using " + healingItem.itemName,5f);
+                Destroy(healingItem.gameObject);
             }
 
         }

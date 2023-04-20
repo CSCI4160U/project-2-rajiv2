@@ -28,6 +28,8 @@ public class DoorPortal : MonoBehaviour
     private bool canStillOpen = true;
 
     private Player player = null;
+    private Enemy enemy = null;
+    private bool isPlayer = false;
 
     private void Awake()
     {
@@ -56,14 +58,26 @@ public class DoorPortal : MonoBehaviour
         ShowHint();
     }
 
-    public void SetDoorOpen(bool state)
+    public void SetDoorOpen(bool state, bool isPlayer)
     {
         if (doorAnimator != null)
         {
             isOpen = state;
             Vector3 doorTransformDirection = transform.TransformDirection(Vector3.forward);
-            Vector3 playerTransformDirection = player.transform.position - transform.position;
-            float dot = Vector3.Dot(doorTransformDirection, playerTransformDirection);
+            
+            
+            float dot = 0f;
+            if (isPlayer)
+            {
+                Vector3 playerTransformDirection = player.transform.position - transform.position;
+                dot = Vector3.Dot(doorTransformDirection, playerTransformDirection);
+            }
+            else
+            {
+                Vector3 enemyTransformDirection = enemy.transform.position - transform.position;
+                dot = Vector3.Dot(doorTransformDirection, enemyTransformDirection);
+            }
+            
 
             // direction doot swings
             doorAnimator.SetFloat("dot", dot);
@@ -76,17 +90,20 @@ public class DoorPortal : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            isPlayer = true;
             if (canStillOpen && !isOpen && PlayerHasReachedGoal())
             {
-                SetDoorOpen(true);
+                SetDoorOpen(true,isPlayer);
             }
             
         }
         else if (other.CompareTag("Enemy"))
         {
+            isPlayer = false;
+            enemy = other.GetComponent<Enemy>();
             if (canStillOpen && !isPortal)
-            {
-                SetDoorOpen(true);
+            {  
+                SetDoorOpen(true, isPlayer);
             }
         }
     }
@@ -98,16 +115,18 @@ public class DoorPortal : MonoBehaviour
             // if door is open
             if (isOpen)
             {
+                isPlayer = true;
                 // if door is a one way, can't open it again
                 if (isOneWay && canStillOpen)
                 {
+                    
                     canStillOpen = false;
-                    SetDoorOpen(false);
+                    SetDoorOpen(false, isPlayer);
                 }
                 else
                 {
                     // if is a normal door, close after player exits collider
-                    SetDoorOpen(false);
+                    SetDoorOpen(false, isPlayer);
                 }
 
                 // after going through door, go through portal
@@ -119,9 +138,11 @@ public class DoorPortal : MonoBehaviour
         }
         else if (other.CompareTag("Enemy"))
         {
+            isPlayer = false;
+            enemy = other.GetComponent<Enemy>();
             if (!isOneWay)
             {
-                SetDoorOpen(false);
+                SetDoorOpen(false, isPlayer);
             }
         }
     }

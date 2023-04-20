@@ -27,19 +27,16 @@ public class FirstPersonController : MonoBehaviour
     public static FirstPersonController _instance;
 
     private Player player;
-    private float cameraDefaultY;
 
     private CharacterController controller;
     
     private float verticalRotation = 0f;
     private float verticalSpeed = 0f;
     private bool isGrounded = false;
-    private bool isCrouching = false;
 
     private void Awake()
     {
         _instance = this;
-        cameraDefaultY = firstPersonCamera.position.y;
         controller = GetComponent<CharacterController>();
     }
     private void Start()
