@@ -18444,6 +18444,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8078419830531917190, guid: c4291497d6d847446be35ff974fb9d37,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 2929508}
     - target: {fileID: 9136092293539948182, guid: c4291497d6d847446be35ff974fb9d37,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -52066,6 +52071,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5471798539750897475, guid: ce00a5a63b68daa4589dc042700bfb23,
         type: 3}
+      propertyPath: isPortal
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5471798539750897475, guid: ce00a5a63b68daa4589dc042700bfb23,
+        type: 3}
+      propertyPath: destination
+      value: SpaceScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 5471798539750897475, guid: ce00a5a63b68daa4589dc042700bfb23,
+        type: 3}
       propertyPath: patternGrid
       value: 
       objectReference: {fileID: 342392817}
@@ -52078,7 +52093,8 @@ PrefabInstance:
         type: 3}
       propertyPath: playerTransformInDestination
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 4ea2a6132d9abed42834c0ab8d1233a3,
+        type: 2}
     - target: {fileID: 5471798539750897475, guid: ce00a5a63b68daa4589dc042700bfb23,
         type: 3}
       propertyPath: playerTransformInCurrentScene

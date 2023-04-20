@@ -23,6 +23,9 @@ public class LevelSystem : MonoBehaviour
     };
 
     [SerializeField] private Player player = null;
+    [SerializeField] private GameObject levelSlider = null;
+    [SerializeField] private GameObject currentLvlInHUD = null;
+    [SerializeField] private GameObject nextLvlInHUD = null;
     private string previousLvl = string.Empty;
 
     private void Update()
@@ -35,9 +38,6 @@ public class LevelSystem : MonoBehaviour
 
     public void UpdateLevel()
     {
-        GameObject levelSlider = GameObject.Find("LevelSlider");
-        GameObject currentLvlInHUD = GameObject.Find("CurrentLevel");
-        GameObject nextLvlInHUD = GameObject.Find("NextLevel");
 
         if (player != null)
         {

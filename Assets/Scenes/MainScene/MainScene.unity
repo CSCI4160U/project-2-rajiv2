@@ -25234,6 +25234,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -3065296443972723413, guid: 140d30c0f058bc840a8004e0f28453b9,
         type: 2}
+    - target: {fileID: 8078419830531917190, guid: c4291497d6d847446be35ff974fb9d37,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 2407320627613355764}
     - target: {fileID: 9136092293539948182, guid: c4291497d6d847446be35ff974fb9d37,
         type: 3}
       propertyPath: m_AnchorMax.y
